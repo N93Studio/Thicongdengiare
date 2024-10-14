@@ -1,0 +1,38 @@
+﻿
+<div class="block-breadcrumb">
+    <div class="container">
+        <ul class="">
+            <li>
+                <a href="/">Trang chủ</a>
+            </li>
+            <li>
+                <i class="fa fa-angle-right"></i>
+            </li>
+           
+            <li class="active">Tour trong nước</li>
+        </ul>
+    </div>
+</div>
+
+<section class="diemdennoibat" style="margin-top:50px;">
+    <div class="container">
+       
+        <div class="row">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="diemdennoibat_box" style="background-image: linear-gradient(rgb(107 107 107 / 31%), rgb(30 30 30 / 38%)), url('/Upload/ProductCategories/@item.ProductCategoryImage');">
+                            <div class="diemnoibat_title">
+                                <a href="@item.ProductCategoryUrl">
+                                    @item.ProductCategoryTitle
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

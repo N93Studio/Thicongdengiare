@@ -1,0 +1,554 @@
+﻿
+
+@*<script>
+        $('.autoplay').slick({
+            infinite: false,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                    }
+                }
+            ]
+        });
+    </script>*@
+
+
+<div class="bodywrap">
+    <div class="clearfix">
+
+    </div>
+
+    <div class="autoplayfaded" style="position:relative">
+        @if (ViewBag.Slideshow != null)
+        {
+            foreach (var item in ViewBag.Slideshow)
+            {
+                <div>
+                    <div class="slider-top_box">
+
+                    </div>
+
+                    <img src="~/Upload/Slideshow/@item.Images" class="img-fluid" style="width:100%" alt="@item.Images" />
+                </div>
+            }
+        }
+
+    </div>
+    <section class="section_about">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6">
+                    <img width="708" height="700" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/about.png?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/about.png?1705897553005" alt="" data-was-processed="true">
+                </div>
+                <div class="col-lg-6">
+                    <span class="title-smail">
+                        Về Chúng Tôi 
+                    </span>
+                    <span class="title">
+                        Dola Solar
+                    </span>
+                    <span class="content">
+                        Dola Solar tự hào là đơn vị nhập khẩu tấm pin năng lượng mặt trời giá sỉ từ Đức. Với đội ngũ kỹ sư giàu kinh nghiệm, Việt Nam Solar khẳng định là đơn vị cung cấp giải pháp điện mặt trời hàng đầu Việt Nam đến thời điểm hiện tại.
+                    </span>
+                    <ul class="faq">
+                        <li>
+                            <h3>
+                                Tầm Nhìn
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
+                            </h3>
+                            <div class="content-faq" style="display:none">
+                                Phù hợp với chiến lược đầu tư, hợp tác và phát triển bền vững, Dola Solar phấn đấu trở thành công ty công nghệ hàng đầu và có uy tín tại Việt Nam trong lĩnh vực biến tần – tự động hóa, điều khiển dây chuyền tự động, tiết kiệm năng lượng và năng lượng mặt trời.
+                            </div>
+                        </li>
+                        <li>
+                            <h3>
+                                Sứ Mệnh
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
+                            </h3>
+                            <div class="content-faq" style="display:none">
+                                Dola Solar hoạt động với phương châm “Đáp ứng mong đợi của bạn”. <br><br>
+
+                                Dola Solar luôn tập trung đầu tư vào phát triển nguồn nhân lực, nghiên cứu để tạo ra các sản phẩm, giải pháp và dịch vụ hiệu quả, thông minh và cao cấp.<br><br>
+
+                                Mỗi ngày, Dola Solar cố gắng làm mọi thứ đơn giản và dễ dàng cho người khác, cho đồng nghiệp, cho khách hàng và đối tác.
+                            </div>
+                        </li>
+                        <li>
+                            <h3>
+                                Triết Lý Kinh Doanh
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
+                            </h3>
+                            <div class="content-faq" style="display:none">
+                                Tin tưởng vào Nhân quả, Dola Solar luôn hành động theo phương châm: Chia sẻ và cho đi những giá trị quý giá cho tất cả khách hàng, đối tác, cộng đồng và xã hội.<br>
+
+                                Dola Solar là lợi ích của nhân viên, khách hàng, đối tác trong nước và quốc tế.<br>
+
+                                Sự hài lòng của khách hàng và hạnh phúc của nhân viên là thước đo thành công của Dola Solar.
+                            </div>
+                        </li>
+                        <li>
+                            <h3>
+                                Lời Cam kết
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @@fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
+                            </h3>
+                            <div class="content-faq" style="display:none">
+                                Dola Solar cam kết cung cấp các sản phẩm chất lượng, giải pháp và dịch vụ hiệu quả “Tốt hơn Mỹ, tốt hơn Đức” cho tất cả khách hàng.<br><br>
+
+                                Với các đối tác, Dola Solar cam kết uy tín và hợp tác vì lợi ích chung.<br><br>
+
+                                Với nhân viên, Dola Solar cam kết đảm bảo sự công bằng cao nhất.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $('.faq li h3').on('click', function (e) {
+            e.preventDefault(); var $this = $(this);
+            $this.parents('li').find('.content-faq').slideToggle();
+            $this.parents('li').toggleClass('active');
+            return false;
+        });
+    </script>
+
+
+
+
+    <section class="section_why">
+        <img width="1920" height="390" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/taisao.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/taisao.jpg?1705897553005" alt="Tại sao chọn chúng tôi?" data-was-processed="true">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-xl-4">
+
+                    <span class="title">
+                        Tại sao chọn chúng tôi?
+                    </span>
+                    <span class="content">
+                        Hơn 375 dự án lắp đặt hệ thống điện năng lượng mặt trời được Dola Solar thực thiện trong năm 2022. Tại sao họ lại chọn chúng tôi?
+                    </span>
+                </div>
+                <div class="col-12 col-xl-8">
+                    <ul>
+
+                        <li>
+                            <div class="thumb">
+                                <div class="icon">
+                                    <img width="64" height="64" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo1.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo1.jpg?1705897553005" alt="Sản phẩm chất lượng" data-was-processed="true">
+                                </div>
+                                <h3 class="title-item">
+                                    Sản phẩm chất lượng
+                                </h3>
+                                <span class="content-item">
+                                    Sản phẩm 100% nhập khẩu có đầy đủ chứng từ CO, CQ từ nhà sản xuất. Chế độ bảo hành theo tiêu chuẩn nhà sản xuất. Các sản phẩm nằm trong top 5 thế giới
+                                </span>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="thumb">
+                                <div class="icon">
+                                    <img width="64" height="64" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo2.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo2.jpg?1705897553005" alt="Lắp đặt, bảo hành 24/7" data-was-processed="true">
+                                </div>
+                                <h3 class="title-item">
+                                    Lắp đặt, bảo hành 24/7
+                                </h3>
+                                <span class="content-item">
+                                    Thời gian bảo hành lên đến 12 năm. Hiệu suất sản phẩm lên đến 30 năm. Khách hàng sẽ hoàn toàn yên tâm từ khoản đầu tư của mình
+                                </span>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="thumb">
+                                <div class="icon">
+                                    <img width="64" height="64" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo3.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo3.jpg?1705897553005" alt="Tiết kiệm chi phí" data-was-processed="true">
+                                </div>
+                                <h3 class="title-item">
+                                    Tiết kiệm chi phí
+                                </h3>
+                                <span class="content-item">
+                                    Các gói sản phẩm được thiết kế phù hợp với từng khách hàng cụ thể. Đảm bảo tiết kiệm chi phí và thời gian hoàn vốn nhanh nhất
+                                </span>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="thumb">
+                                <div class="icon">
+                                    <img width="64" height="64" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo4.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo4.jpg?1705897553005" alt="Phục vụ tận tâm" data-was-processed="true">
+                                </div>
+                                <h3 class="title-item">
+                                    Phục vụ tận tâm
+                                </h3>
+                                <span class="content-item">
+                                    Chúng tôi không ngừng đào tạo, nâng cao chất lượng dịch vụ và chăm sóc khách hàng 24/7. Luôn đặt quyền lợi khách hàng lên trên hết
+                                </span>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="thumb">
+                                <div class="icon">
+                                    <img width="64" height="64" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo5.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo5.jpg?1705897553005" alt="Đội ngũ chuyên nghiệp" data-was-processed="true">
+                                </div>
+                                <h3 class="title-item">
+                                    Đội ngũ chuyên nghiệp
+                                </h3>
+                                <span class="content-item">
+                                    Chúng tôi sở hữu đội ngũ kĩ thuật vượt trội, được đào tạo đầy đủ kiến thức cũng như là kinh nghiệm
+                                </span>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="thumb">
+                                <div class="icon">
+                                    <img width="64" height="64" class="lazyload loaded" src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo6.jpg?1705897553005" data-src="//bizweb.dktcdn.net/100/487/020/themes/911678/assets/lydo6.jpg?1705897553005" alt="Khuyến mãi đi kèm" data-was-processed="true">
+                                </div>
+                                <h3 class="title-item">
+                                    Khuyến mãi đi kèm
+                                </h3>
+                                <span class="content-item">
+                                    Dola Solar luôn luôn có khuyến mãi kèm theo cho tất cả các hóa đơn dù lớn hay nhỏ.
+                                </span>
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="section_noibat">
+        <div class="container">
+            <span class="title">
+                Công dụng nổi bật
+            </span>
+            <span class="content">
+
+            </span>
+            <div class="row">
+
+                <div class="col-lg-4 congdung">
+
+                    <div class="item">
+                        <div class="item-title">
+                            Tiết kiệm chi phí tiền điện nhà bạn.
+                        </div>
+                        <div class="item-content">
+                            Trước khi sử dụng năng lượng mặt trời bạn phải sử dụng nguồn điện lưới quốc gia, với chi phí tiền điện không hề rẻ nếu bạn sử dụng nhiều số điện.<br>
+
+                            Đắc biệt những nhà hay bơm nước tưới cây trồng, làm nghệ mộc, làm cơ khí,… sử dụng rất nhiều số điện.
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">
+                            Làm mái nhà bạn luôn mát mẻ.
+                        </div>
+                        <div class="item-content">
+                            Khi hệ thống pin năng lượng mặt trời được lắp đặt trên mái nhà bạn, các tia bức xạ được hấp thụ hoàn toàn.<br>
+
+                            Các tấm pin năng lượng mặt trời giúp mái ngôi nhà mặt luôn mát mẻ, giảm tác động từ các hiện tượng tự nhiên đến ngôi nhà.<br>
+
+                            Tạo ra nguồn điện sử dụng trong sinh hoạt và sản xuất.
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="thumb-image">
+                        <img width="646" height="646" class="lazyload" src="https://bizweb.dktcdn.net/100/487/020/themes/911678/assets/congdung.png?1705897553005" data-src="https://bizweb.dktcdn.net/100/487/020/themes/911678/assets/congdung.png?1705897553005" alt="Công dụng nổi bật">
+                    </div>
+                </div>
+                <div class="col-lg-4 congdung">
+
+                    <div class="item">
+                        <div class="item-title">
+                            Tạo ra công việc cho nguồn lao động dồi dào tại Việt Nam.
+                        </div>
+                        <div class="item-content">
+                            Rất nhiều công việc, công đoạn cần đến nhân công, chưa kể đến cần công nhân sản xuất linh kiện, thiết bị, nhân viên lắp đặt, nhân viên vận chuyển,…<br>
+
+                            Tạo ra rất nhiều công việc giúp thúc đẩy nền kinh tế, tác động tích cực đến xã hội, tạo cơ hội việc làm cho người dân.
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">
+                            Tác động tích cực đến môi trường.
+                        </div>
+                        <div class="item-content">
+                            Năng lượng mặt trời tạo ra từ ánh sáng mặt trời, các tia bức xạ UV độc hại, việc hấp thụ các tia bức xạ độc hại đã tác động tích cực, bảo vệ môi trường.<br>
+
+                            Giảm thiểu hiệu ứng nhà kính, không gây ô nhiễm nguồn nước, không tác động đến môi trường xung quanh.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+    <section class="section_tab_product ">
+
+        <div class="container">
+            <div class="block-product">
+
+
+                <h2 class="title">
+                    <a href="/collections/all" title="Sản phẩm của chúng tôi">Sản phẩm của chúng tôi</a>
+                </h2>
+                <div class="row">
+                    <div class="col-12 e-tabs not-dqtab ajax-tab-1" data-section="ajax-tab-1" data-view="grid_4">
+                        <ul class="tabs tabs-title tab-desktop ajax clearfix">
+                            @if (ViewBag.Listproductcategory != null)
+                            {
+                                var i = 0;
+                                foreach (TCP.DTO.DTO_ProductCategories item in ViewBag.Listproductcategory)
+                                {
+
+                                    if (i == 0)
+                                    {
+                                        <li id="firstli" class="tab-link has-content current" data-tab="tab-@item.ProductCategoryId" data-url="@item.ProductCategoryUrl">
+                                            <span title="@item.ProductCategoryTitle">
+                                                @item.ProductCategoryTitle
+                                            </span>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="tab-link has-content" data-tab="tab-@item.ProductCategoryId" data-url="@item.ProductCategoryUrl">
+                                            <span title="@item.ProductCategoryTitle">
+                                                @item.ProductCategoryTitle
+                                            </span>
+                                        </li>
+                                    }
+                                    i++;
+                                }
+                            }
+                        </ul>
+                        @if (ViewBag.Listproductcategory != null)
+                        {
+                            foreach (TCP.DTO.DTO_ProductCategories item in ViewBag.Listproductcategory)
+                            {
+                                @Html.Action("ProductByCate", "Home",new { ProductCategoryId=item.ProductCategoryId,url=item.ProductCategoryUrl})
+                            }
+                        }
+                       
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="section_duan_dalam">
+        <div class="container">
+            <div class="block-blog">
+                <h3 class="title">
+                    <a class="title-name" href="du-an-da-hoan-thanh" title="Một số dự án đã hoàn thiện">
+                        Một số dự án đã hoàn thiện
+                    </a>
+                </h3>
+
+
+                <div class="duan-slider swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-multirow" style="cursor: grab;">
+                    <div class="swiper-wrapper" style="width: 1108px; transform: translate3d(0px, 0px, 0px);">
+                        @if (ViewBag.Duan != null)
+                        {
+                            foreach (TCP.DTO.DTO_News item in ViewBag.Duan)
+                            {
+                                <div class="swiper-slide" style="width: 257px; margin-right: 20px;">
+                                    <div class="item-blog-duan">
+                                        <div class="block-thumb">
+
+                                            <a class="thumb" href="@item.NewsUrl" title="@item.NewsTitle">
+                                                <img class="lazyload" src="~/Upload/News/@item.NewsImage" data-src="~/Upload/News/@item.NewsImage" alt="@item.NewsTitle">
+                                            </a>
+
+                                            <div class="time-post">
+                                                26
+                                                <span>Tháng 05</span>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="block-content">
+                                            <h3>
+                                                <a class="line-clamp line-clamp-2" href="@item.NewsUrl" title="@item.NewsTitle">@item.NewsTitle</a>
+                                            </h3>
+
+
+                                            <a class="viewmore" href="@item.NewsUrl" title="Đọc tiếp">Đọc tiếp</a>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="text-center no-padding" style="margin-top: 15px">
+                    <a class="see-more" title="Xem tất cả" href="du-an">Xem tất cả</a>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="section_blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="block-blog block-blog1">
+                        <h3 class="title">
+                            <a class="title-name" href="tin-tuc" title="Tin tức mới nhất">
+                                Tin tức mới nhất
+                            </a>
+                        </h3>
+                        @{
+                                                <div class="row">
+                                                    @if (ViewBag.Tintuc != null)
+                                                    {
+                                                    foreach (TCP.DTO.DTO_News item in ViewBag.Tintuc)
+                                                    {
+                                                    <div class="item-blog col-sm-6 col-6">
+                                                        <div class="block-thumb">
+
+                                                            <a class="thumb" href="@item.NewsUrl" title="@item.NewsTitle">
+                                                                <img class="lazyload" src="~/Upload/News/@item.NewsImage" data-src="~/Upload/News/@item.NewsImage" alt="@item.NewsTitle">
+                                                            </a>
+                                                        </div>
+                                                        <div class="block-content">
+
+
+                                                            <h3>
+                                                                <a class="line-clamp line-clamp-2" href="@item.NewsUrl" title="@item.NewsTitle">@item.NewsTitle</a>
+                                                            </h3>
+
+                                                            <div class="time-post">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                                                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"></path>
+                                                                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                                                                </svg>
+                                                                @item.CreatedOn.ToShortDateString();
+                                                            </div>
+                                                            <p class="justify line-clamp line-clamp-3">
+                                                                Động lực tăng trưởng kinh tế đã dẫn đến nhiều hệ lụy như suy thoái môi trường và chênh lệch xã hội. Do đó&nbsp;phát triển bền vững&nbsp;đã được đặt ra nhằm thúc đẩy các quốc gia phát triển trên cơ sở: tăng trưởng kinh tế, đảm bảo công bằng xã...
+                                                            </p>
+
+                                                        </div>
+
+                                                    </div>
+                                                    }
+                                                    }
+
+                                                </div>
+
+}
+
+
+                        <div class="text-center no-padding">
+                            <a class="see-more" title="Xem tất cả" href="tin-tuc">Xem tất cả</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section_brand">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4">
+                    <span class="title">
+                        Đối tác của chúng tôi
+                    </span>
+                    <span class="content">
+                        Những đối tác đã tin tưởng và cùng đồng hành với chúng tôi trong suốt những năm qua
+                    </span>
+                </div>
+                <div class="col-lg-8">
+                    <ul>
+                        @if (ViewBag.Doitac != null)
+                        {
+                            foreach (TCP.DTO.DTO_Doitac item in ViewBag.Doitac)
+                            {
+                                <li>
+                                    <a  title="Thương hiệu">
+                                        <img width="390" height="129" class="lazyload" src="~/Upload/Doitac/@item.Images" data-src="~/Upload/Doitac/@item.Images" alt="Thương hiệu">
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</div>
+
+
+

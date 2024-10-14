@@ -1,0 +1,106 @@
+﻿<div class="bodywrap">
+    <section class="bread-crumb">
+
+        <div class="container">
+
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                </li>
+
+
+                <li><strong><span>@ViewBag.title</span></strong></li>
+               
+            </ul>
+        </div>
+    </section>
+</div>
+
+
+
+<h1 style="display:none;">
+    @ViewBag.title
+</h1>
+<div class="container pad-content">
+    <div class="row">
+        <div class="col-sm-12">
+            @if (ViewBag.Boxseo != null)
+            {
+                @Html.Raw(ViewBag.Boxseo)
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (TCP.DTO.DTO_News item in Model)
+            {
+                <div class="blog-post latest-blog-3 blog-md date-style-2 col-sm-6 col-md-4 col-6">
+                   <div class="blog-post-box">
+                       <div class="item">
+                           <a href="@item.NewsUrl"><img src="/upload/news/@item.NewsImage" alt="" class="img-responsive"></a>
+                       </div>
+                       <div class="wt-post-info" style="margin-top:20px;">
+                           <div class="wt-post-title ">
+                               <h3>
+                                   <a class="line-clamp line-clamp-2" href="@item.NewsUrl" title="@item.NewsTitle">@item.NewsTitle</a>
+                               </h3>
+                           </div>
+
+                           <div class="wt-post-text">
+
+                               <p class="">@Html.Raw(item.NewsDesc)</p>
+                           </div>
+
+                       </div>
+                   </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Raw(ViewBag.page)
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('#catalogue').booklet(); var firstPage = $('#catalogue img').first(); var pageRatio = firstPage.height() / firstPage.width(); firstPage.on('load', function () { resizeBooklet(); }); $('#catalogue').booklet({ width: '100%', pageNumbers: false, pagePadding: 0, arrows: true, speed: 500, change: function (event, data) { preloadPages(data.index); }, create: function (event, data) { resizeBooklet(); } }); resizeBooklet(); $(window).on('resize orientationchange', function () { setTimeout(resizeBooklet, 200); }); function preloadPages(currentIndex) { $('.b-page-' + (currentIndex + 2) + ', .b-page-' + (currentIndex + 3)).each(function () { var has_wrapper = ($(this).find('[data-js=page_image-holder]').length > 0) ? true : false; var has_image = ($(this).find('img').length > 0) ? true : false; if (has_wrapper && !has_image) { var wrapper_element = $(this).find('[data-js=page_image-holder]'); var img_src = wrapper_element.attr('href'); var img_alt = wrapper_element.attr('title'); wrapper_element.append('<img src="' + img_src + '" alt="' + img_alt + '" class="catalogue_image scale_with_grid" />'); } }); }
+        function resizeBooklet() { pageRatio = firstPage.height() / firstPage.width(); var containerWidth = $("#catalogue_wrapper").width(); $("#catalogue").booklet("option", "width", containerWidth); $("#catalogue").booklet("option", "height", (containerWidth / 2) * pageRatio); }
+    });</script>
+
+<style>
+    .tintuc_title {
+        /* position: absolute; */
+        position: relative;
+        bottom: 0px;
+        left: 0px;
+    }
+
+    .tintuc_title {
+        /* background-color: rgba(45, 62, 80, 0.8); */
+        background-color: white;
+        padding: 11px 10px;
+        border: 1px solid #d6d5d5;
+        font-weight: 600;
+        line-height: 24px;
+        font-size: 12px;
+        color: white;
+        text-transform: capitalize;
+        min-height: 64px;
+    }
+</style>
+<style>
+    .Gioithieu_Xemthem a:hover {
+        color: #fff;
+    }
+</style>
+
+
+
+</style>
+<script src="/assets/js/paging.js?v=1"></script>

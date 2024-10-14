@@ -1,0 +1,208 @@
+﻿    
+@{
+    ViewBag.Title = "Quản lý danh sách bài viết";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+               
+                <div>
+                    Quản lý danh sách bài viết
+
+                </div>
+                <input value="@ViewBag.NewsCategoryId" id="NewsCategoryId" type="hidden" />
+                <div class="page-title-subheading d-none" >
+                    <div class="box_search">
+                        <div class="col_cate">
+                            <div onclick="open_cate()" class="dmt">
+                                <span id="title_cate">
+                                    -Danh mục tin-
+                                </span>
+                                <i class="dmt_fa fa fa-angle-down"></i>
+                            </div>
+                            <div class="col_cate_menu">
+                                <ul>
+                                    @if (ViewBag.Listcate != null)
+                                    {
+                                        <li>
+                                            <a onclick="toget(0,' Tất cả danh mục tin')">
+                                                Tất cả danh mục tin
+                                            </a>
+                                        </li>
+                                        foreach (var item in ViewBag.Listcate)
+                                        {
+                                            <li>
+                                                <a onclick="toget('@item.NewsCategoryId','@item.NewsCategoryTitle')">
+                                                    @item.NewsCategoryTitle
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col_search">
+                            <input placeholder="Tìm kiếm..." id="idsearch" />
+                        </div>
+                        <div class="col_button" onclick="searchdata()" style="cursor:pointer;">
+                            <i class="fa fa-search" ></i>
+                        </div>
+                        <div class="clearfix">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                @*<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
+                        <i class="fa fa-star"></i>
+                    </button>*@
+                <div class="d-inline-block dropdown">
+                    <button onclick="goto()" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-dark">
+                        Thêm
+                    </button>
+                    @*<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link">
+                                        <i class="nav-link-icon lnr-inbox"></i>
+                                        <span> Inbox</span>
+                                        <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">
+                                        <i class="nav-link-icon lnr-book"></i>
+                                        <span> Book</span>
+                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">
+                                        <i class="nav-link-icon lnr-picture"></i>
+                                        <span> Picture</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a disabled="" class="nav-link disabled">
+                                        <i class="nav-link-icon lnr-file-empty"></i>
+                                        <span> File Disabled</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>        <div class="row">
+        <div class="col-lg-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                        <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>DANH SÁCH
+                    </div>
+                    <div class="btn-actions-pane-right actions-icon-btn">
+                        <div class="btn-group dropdown">
+                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    class="btn-icon btn-icon-only btn btn-link">
+                                <i class="pe-7s-menu btn-icon-wrapper"></i>
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                                <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                <button type="button" tabindex="0" class="dropdown-item">
+                                    <i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+                                </button>
+                                <button type="button" tabindex="0" class="dropdown-item">
+                                    <i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+                                </button>
+                                <button type="button" tabindex="0" class="dropdown-item">
+                                    <i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+                                </button>
+                                <div tabindex="-1" class="dropdown-divider"></div>
+                                <div class="p-3 text-right">
+                                    <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                                    <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th width="20%">Tên bài viết</th>
+                                    <th>
+                                        Danh mục
+                                    </th>
+                                    <th>Hình ảnh</th>
+                                    <th width="10%">URL</th>
+                                    <th>sắp xếp</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Hiển thị</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodydata">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#mnnew_@ViewBag.NewsCategoryId").addClass("setmenuactive");
+        $("#colaplinewcate").addClass("mm-active");
+        $("#colapnewcate").attr("aria-expanded", true);
+    })
+    function searchdata() {
+        getList(getidcate);
+    }
+    var getidcate = 0;
+    function toget(ids, name) {
+        $("#title_cate").html(name);
+        $(".col_cate_menu").hide();
+        getList(ids);
+        getidcate = ids;
+    }
+    getList($("#NewsCategoryId").val());
+    function getList(id) {
+        var param = {
+            idcate: id,
+            keysearch: $("#idsearch").val(),
+            NewsCategoryId:@ViewBag.NewsCategoryId
+        };
+        $.ajax({
+            url: '/Administrator/News/NewsGetData',
+            data: param,
+            dataType: 'text',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+                $("#bodydata").empty().html(result)
+            }
+        });
+    }
+    function goto() {
+        window.location.href = "/Administrator/news/NewsInsertList?NewsCategoryId=@ViewBag.NewsCategoryId";
+    }
+    function open_cate() {
+        $(".col_cate_menu").toggle();
+    }
+
+</script>
+<style>
+    .app-page-title .page-title-subheading {
+        padding: 3px 0 0;
+        font-size: .88rem;
+        opacity: 1;
+    }
+
+</style>

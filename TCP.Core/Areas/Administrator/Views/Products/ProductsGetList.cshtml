@@ -1,0 +1,353 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý danh sách sản phẩm";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+              
+                <div>
+                    Quản lý danh sách sản phẩm
+                    @*<div class="page-title-subheading">Tables are the backbone of almost all web applications.</div>*@
+                </div>
+                <div class="page-title-subheading">
+                    <div class="box_search">
+                        <div class="col_cate">
+                            <div onclick="open_cate()" class="dmt">
+                                <span id="title_cate">
+                                   Tất cả danh mục sản phẩm
+                                </span>
+                                <i class="dmt_fa fa fa-angle-down"></i>
+                            </div>
+                            <div class="col_cate_menu">
+                                <ul>
+                                    @if (ViewBag.Listcate != null)
+                                    {
+                                        <li>
+                                            <a onclick="toget(0,' Tất cả danh mục sản phẩm')">
+                                                Tất cả danh mục sản phẩm
+                                            </a>
+                                        </li>
+                                        foreach (var item in ViewBag.Listcate)
+                                        {
+                                            <li>
+                                                <a onclick="toget('@item.ProductCategoryId','@item.ProductCategoryTitle')">
+                                                    @item.ProductCategoryTitle
+                                                </a>
+                                            </li>
+                                            @Html.Action("ProductsGetListChild", "Products", new { ParentID = item.ProductCategoryId })
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                      
+                        <div class="clearfix">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                @*<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
+                        <i class="fa fa-star"></i>
+                    </button>*@
+                <div class="d-inline-block dropdown">
+                    <button onclick="goto()" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-dark">
+                        @*<span class="btn-icon-wrapper pr-2 opacity-7">
+                                <i class="fa fa-business-time fa-w-20"></i>
+                            </span>*@
+                        Thêm
+                    </button>
+                    @*<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link">
+                                        <i class="nav-link-icon lnr-inbox"></i>
+                                        <span> Inbox</span>
+                                        <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">
+                                        <i class="nav-link-icon lnr-book"></i>
+                                        <span> Book</span>
+                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">
+                                        <i class="nav-link-icon lnr-picture"></i>
+                                        <span> Picture</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a disabled="" class="nav-link disabled">
+                                        <i class="nav-link-icon lnr-file-empty"></i>
+                                        <span> File Disabled</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                        <i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>DANH SÁCH
+
+                    </div>
+                    <div class="btn-actions-pane-right actions-icon-btn">
+                        <div class="btn-group dropdown">
+                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    class="btn-icon btn-icon-only btn btn-link">
+                                <i class="pe-7s-menu btn-icon-wrapper"></i>
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                                <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                <button type="button" tabindex="0" class="dropdown-item">
+                                    <i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+                                </button>
+                                <button type="button" tabindex="0" class="dropdown-item">
+                                    <i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+                                </button>
+                                <button type="button" tabindex="0" class="dropdown-item">
+                                    <i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+                                </button>
+                                <div tabindex="-1" class="dropdown-divider"></div>
+                                <div class="p-3 text-right">
+                                    <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                                    <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" id="mydata">
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var selectCate = 0;
+    function searchSP() {
+        window.location.href = "/Administrator/Products/ProductsGetList?idcate="+selectCate;
+    }
+    function toget(ids, name) {
+        $("#title_cate").html(name);
+        $(".col_cate_menu").hide();
+        selectCate = ids;
+        //alert(selectCate)
+       getList(ids);
+    }
+    //getList(0);
+    function getList(id) {
+        var param = {
+            idcate: id
+        };
+        $.ajax({
+            url: '/Administrator/Products/ProductsGetData',
+            data: param,
+            dataType: 'text',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+                $("#mydata").html(result);
+                $('#myTable').DataTable({
+                    "order": [],
+                    "pageLength": 50,
+                    "scrollX": false,
+                    "language": {
+                        "lengthMenu": "Hiển thị _MENU_ sản phẩm", // Thay đổi văn bản số lượng hàng trên mỗi trang
+                        "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ sản phẩm", // Thay đổi văn bản thông tin số dòng
+                        "search": "Tìm kiếm:", // Thay đổi văn bản tìm kiếm
+                        "paginate": {
+                            "first": "Đầu", // Thay đổi văn bản nút trang đầu
+                            "last": "Cuối", // Thay đổi văn bản nút trang cuối
+                            "next": "Tiếp", // Thay đổi văn bản nút trang kế tiếp
+                            "previous": "Trước" // Thay đổi văn bản nút trang trước
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+    function goto() {
+        window.location.href = "/Administrator/Products/ProductsInsertList";
+    }
+    function open_cate() {
+        $(".col_cate_menu").toggle();
+    }
+</script>
+<script>
+    function deletes(id, name) {
+        $.confirm('Bạn có muốn xóa sản phẩm này?', {
+            em: '', title: 'Cảnh báo!', callEvent: function () {
+
+                $.ajax({
+                    url: '/Tool/DeleteFile.ashx',
+                    data: 'name=' + name + '&folder=' + 'Products',
+                    dataType: 'text',
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+
+                    }
+                });
+                //Lấy list ten hình con
+                var pr =
+                {
+                    "ProductID": id
+                }
+                var lststring;
+                var getstring = "";
+                var lenghst = 0;
+                $.ajax({
+                    url: '/Administrator/Products/GetNameImages',
+                    data: pr,
+                    dataType: 'text',
+                    type: 'POST',
+                    cache: false,
+                    success: function (result) {
+                        getstring = result.toString();
+                        lststring = getstring.split(',');
+
+                        lenghst = lststring.length;
+                        console.log(lststring)
+                        for (i = 0; i < lenghst - 1; i++) {
+                            if (lststring[i] != "") {
+                                $.ajax({
+                                    url: '/Tool/DeleteFile.ashx',
+                                    data: 'name=' + lststring[i] + '&folder=' + 'ProductsImg',
+                                    dataType: 'text',
+                                    type: 'GET',
+                                    cache: false,
+                                    success: function (result) {
+
+                                    }
+                                });
+                            }
+
+                        }
+                    }
+                });
+                //
+                var param =
+                {
+                    "ProductID": id
+                }
+
+                $.ajax({
+                    url: '/Administrator/Products/ProductsDelete',
+                    data: param,
+                    dataType: 'text',
+                    type: 'POST',
+                    cache: false,
+                    success: function (result) {
+                        window.location.reload();
+                    }
+                });
+            }, cancelEvent: function () { }, cancelButton: 'Không'
+        })
+
+
+    }
+
+
+    function change_displayorder(id, dd) {
+        var param =
+        {
+            "id": id,
+            "idorder": $(dd).val()
+        }
+        console.log(param);
+        $.ajax({
+            url: '/Administrator/Products/ProductSort',
+            data: param,
+            dataType: 'text',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+
+            }
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $("#mnsp").addClass("setmenuactive");
+        $("#colapliprocate").addClass("mm-active");
+        $("#colapprocate").attr("aria-expanded", true);
+        getList(0);
+        $('input').lc_switch();
+
+        // triggered each time a field changes status
+        $(document).on('lcs-statuschange', '.lcs_check', function () {
+            var status = ($(this).is(':checked')) ? 'checked' : 'unchecked',
+                subj = ($(this).attr('type') == 'radio') ? 'radio #' : 'checkbox #',
+                num = $(this).val();
+
+            $('#third_div ul').prepend('<li><em>[lcs-statuschange]</em>' + subj + num + ' changed status: ' + status + '</li>');
+        });
+
+
+        // triggered each time a field is checked
+        $(document).on('lcs-on', '.lcs_check', function () {
+            updateDisplay($(this).val(), 1);
+            var subj = ($(this).attr('type') == 'radio') ? 'radio #' : 'checkbox #',
+                num = $(this).val();
+
+            $('#third_div ul').prepend('<li><em>[lcs-on]</em>' + subj + num + ' is checked</li>');
+        });
+
+
+        // triggered each time a is unchecked
+        $(document).on('lcs-off', '.lcs_check', function () {
+            updateDisplay($(this).val(), 0);
+            var subj = ($(this).attr('type') == 'radio') ? 'radio #' : 'checkbox #',
+                num = $(this).val();
+
+            $('#third_div ul').prepend('<li><em>[lcs-off]</em>' + subj + num + ' is unchecked</li>');
+        });
+
+    });
+
+
+
+    // clean events log
+    $('#third_div small').click(function () {
+        $('#third_div ul').empty();
+    });
+    function updateDisplay(id, status) {
+        var param =
+        {
+            "id": id,
+            "idorder": status
+        }
+        $.ajax({
+            url: '/Administrator/Products/ProductShow',
+            data: param,
+            dataType: 'text',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+                getList();
+            }
+        });
+    }
+</script>

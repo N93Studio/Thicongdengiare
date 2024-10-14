@@ -1,0 +1,500 @@
+﻿
+@{
+    ViewBag.Title = "InsertList";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="typeimage" value="1" />
+@*@Html.Action("Test", "ProductCategory", new { parentId = 1, exexcep = 2 })*@
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-drawer icon-gradient bg-happy-itmeo"></i>
+                </div>
+                <div>
+                      CHI TIẾT DỊCH VỤ
+                    @*<div class="page-title-subheading">Tables are the backbone of almost all web applications.</div>*@
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <button onclick="back();" type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
+                    Quay lại
+                </button>
+                <button class="mt-1 btn btn-danger" data-toggle="tooltip"data-placement="bottom"  onclick="SaveData()" data-original-title="Example Tooltip">Lưu</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            @*<div class="inputWrapper">
+                    <input type="file" id="fu" multiple>
+                </div>
+                <div id="dd">
+
+                </div>*@
+            <div class="tab-content">
+                <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nội dung</h5>
+                                    <div class="">
+                                        <!--Tiêu đề-->
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail" class="">Tiêu đề <span style="color:red">(*)</span></label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtName" id="txtName" placeholder="with a placeholder" type="text" class="form-control" value="@item.ProductTitle">
+                                                    <input type="hidden" id="txtID" name="txtID" value="@item.ProductId" />
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtName" id="txtName" placeholder="with a placeholder" type="text" class="form-control">
+                                                <input type="hidden" id="txtID" name="txtID" value="0" />
+                                            }
+
+                                        </div>    <!--Hình ảnh-->
+                                        <div class="position-relative form-group">
+                                            <label for="exampleFile" class="">Hình ảnh</label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="file" id="fu" type="file" class="form-control-file" multiple>
+                                                    <input type="hidden" id="hdFileName" value="@item.ProductImage" />
+                                                    <div id="dd" onchange="ChangeDD()">
+                                                        @if (item.ProductImage != "")
+                                                        {
+                                                            <div class="myimage">
+                                                                <img src="~/Upload/Products/@item.ProductImage" class="img-fluid" />
+                                                                <a onclick="img_click('@item.ProductImage','Products','')">
+                                                                    x
+
+                                                                </a>
+                                                            </div>
+                                                        }
+
+
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <input name="file" id="fu" type="file" class="form-control-file" multiple>
+                                                <input type="hidden" id="hdFileName" />
+                                                <div id="dd" onchange="ChangeDD()">
+
+                                                </div>
+                                            }
+
+                                            <small class="form-text text-muted">
+                                                Vui lòng chọn hình ảnh có kích thước <strong>600x600px</strong>
+                                            </small>
+                                        </div>
+                                        <!--Hình ảnh-->
+                                        <div class="position-relative form-grou ">
+                                            <label for="exampleFile" class="">Thêm Hình ảnh</label>
+                                            @if (ViewBag.ListImage != null)
+                                            {
+                                                <input name="file2" id="fu2" type="file" class="form-control-file" multiple>
+                                                <input type="hidden" id="hdFileName" />
+                                                <div class="row" id="multidd">
+                                                    @{
+                                                        var listnew = (List<TCP.DTO.DTO_Images>)ViewBag.ListImage;
+                                                    }
+                                                    @foreach (TCP.DTO.DTO_Images item in listnew.ToList().OrderBy(m=>m.ImgId))
+                                                    {
+                                                    var dd = item.Images.Replace(".", "");
+                                                    <div class="col-sm-2 mb-20" id="@dd">
+                                                        <div class="myimage">
+                                                            <img src="~/Upload/ProductsImg/@item.Images" class="img-fluid" />
+                                                            <a onclick="img_click2('@item.Images','ProductsImg','@dd')">
+                                                                x
+
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+
+                                                    }
+                                                </div>
+
+                                            }
+                                            else
+                                            {
+                                                <input name="file2" id="fu2" type="file" class="form-control-file" multiple>
+                                                <input type="hidden" id="hdFileName" />
+
+                                                <div id="multidd" class="row">
+
+                                                </div>
+                                            }
+
+                                            <small class="form-text text-muted">
+                                                Vui lòng chọn hình ảnh có kích thước <strong>600x600px</strong>
+                                            </small>
+                                        </div>
+                                        <!--Danh mục-->
+                                        <div class="position-relative form-group">
+                                            <label for="exampleSelect" class="">Danh mục</label>
+                                            <select name="slPoductCategory" id="slPoductCategory" class="form-control">
+                                                <option value="0">--Root--</option>
+                                                @if (ViewBag.ListProCate != null)
+                                                {
+                                                    foreach (var item in ViewBag.ListProCate)
+                                                    {
+                                                        <option value="@item.ProductCategoryId" data-parent="@item.ParentID">@item.ProductCategoryTitle</option>
+                                                        @Html.Action("ProductCategoryselect", "Products", new { parentId = item.ProductCategoryId })
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <!--Age -->
+                                        <div class="position-relative form-group d-none">
+                                            <label for="exampleEmail" class="">Độ tuổi </label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtAge" id="txtAge" placeholder="with a placeholder" type="text" class="form-control" value="@item.Age">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtAge" id="txtAge" placeholder="with a placeholder" type="text" class="form-control">
+                                            }
+
+                                        </div>
+                                        <!--Age -->
+                                        <div class="position-relative form-group d-none">
+                                            <label for="exampleEmail" class="">Số tuần</label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtWeeks" id="txtWeeks" placeholder="with a placeholder" type="text" class="form-control" value="@item.Age">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtWeeks" id="txtWeeks" placeholder="with a placeholder" type="text" class="form-control">
+                                            }
+
+                                        </div>
+                                        <!--SoNgay -->
+                                        <div class="position-relative form-group d-none">
+                                            <label for="exampleEmail" class="">Số ngày</label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtSoNgay" id="txtSoNgay" placeholder="with a placeholder" type="text" class="form-control" value="@item.SoNgay">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtSoNgay" id="txtSoNgay" placeholder="with a placeholder" type="text" class="form-control">
+                                            }
+
+                                        </div>
+                                        <!--PhuongTien -->
+                                        <div class="position-relative form-group d-none">
+                                            <label for="exampleEmail" class="">Phuương tiện</label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtPhuongTien" id="txtPhuongTien" placeholder="with a placeholder" type="text" class="form-control" value="@item.PhuongTien">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtPhuongTien" id="txtPhuongTien" placeholder="with a placeholder" type="text" class="form-control">
+                                            }
+
+                                        </div>
+                                        <!--Giá -->
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail" class="">Giá <span style="color:red">(*)</span></label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtPrice" id="txtPrice" placeholder="with a placeholder" type="text" class="form-control" value="@item.ProductPrice">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtPrice" id="txtPrice" placeholder="with a placeholder" value="0" type="text" class="form-control">
+                                            }
+
+                                        </div>
+                                        <!--Giá giảm -->
+                                        <div class="position-relative form-group ">
+                                            <label for="exampleEmail" class="">Giá giảm<span style="color:red">(*)</span></label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input name="txtPriceDrop" id="txtPriceDrop" placeholder="with a placeholder" type="text" class="form-control" value="@item.ProductPriceDrop">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input name="txtPriceDrop" id="txtPriceDrop" placeholder="with a placeholder" value="0" type="text" class="form-control">
+                                            }
+
+                                        </div>
+                                        <!--Mô tả ngắn-->
+                                        <div class="position-relative form-group">
+
+                                            <label for="examplePassword" class="">Mô tả ngắn</label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <textarea id="editor2" name="editor2" class="form-control">@item.ProductDesc</textarea>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <textarea id="editor2" name="editor2" class="form-control"></textarea>
+                                            }
+
+                                        </div>
+                                        <!--Nội dung-->
+                                        <div class="position-relative form-group">
+                                            <label for="examplePassword" class="">Nội dung</label>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <textarea id="editor1" name="editor1" class="form-control">@item.ProductContents</textarea>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <textarea id="editor1" name="editor1" class="form-control"></textarea>
+                                            }
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @*<div class="inputWrapper">
+                    <input type="file" id="fu" multiple>
+                </div>Tiêu đề (*)
+                <div id="dd">
+
+                </div>*@
+                            <div class="tab-content">
+                                <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="main-card mb-3 card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Tối ưu seo</h5>
+                                                    @if (Model != null && Model.Count > 0)
+                                                    {
+                                                        foreach (var item in Model)
+                                                        {
+                                                            @Html.Action("GetSeoBox", "Ajax", new { relatedId = item.ProductId, templateid = 2 })
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Action("GetSeoBox", "Ajax", new { relatedId = 0, templateid = 0 })
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="btn_Save_Fixed">
+                          
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function SaveData() {
+        //var parentselect = $("#slPoductCategory option:selected").attr("data-parent") + "," + $("#slPoductCategory").val();
+        var p1 = $("#slPoductCategory option:selected");
+        //Tìm thằng có parant id =p1
+
+        var p2 = $("option[value=" + p1.attr("data-parent") + "]");
+        var p3, parentselect;
+        if (p2.attr("value") != 0) {
+            p3 = $("option[value=" + p2.attr("data-parent") + "]");
+            parentselect = p3.attr("value") + "," + p2.attr("value") + "," + p1.attr("value");
+        }
+        else {
+            parentselect = p2.attr("value") + "," + p1.attr("value");
+        }
+
+        if ($("#slPoductCategory").val() == 0) {
+            alert("Vui lòng chọn danh mục");
+            return;
+        }
+       
+        var param = {
+            "ProductId": $("#txtID").val(),
+            "ProductTitle": $("#txtName").val(),
+            "ProductImage": $("#hdFileName").val(),
+            "ProductPrice": $("#txtPrice").val(),
+            "ProductPriceDrop": $("#txtPriceDrop").val(),
+            "Age": $("#txtAge").val(),
+            "Weeks": $("#txtWeeks").val(),
+            "ProductDesc": CKEDITOR.instances.editor2.getData(),
+            "ProductContents": CKEDITOR.instances.editor1.getData(),
+            "ParentID": parentselect,
+            "SoNgay": $("#txtSoNgay").val(),
+            "PhuongTien": $("#txtPhuongTien").val(),
+            "Title": $("#txttitle").val(),
+            "Url": $("#txtseoURL").val(),
+            "MetaDescription": $("#txtMetaDescription").val(),
+            "MetaKeywords": $("#txtMetaKeywords").val(),
+            "multiImage": savedd
+        }
+        $.post("/Administrator/Products/UpdateProductCategories", { "data": "" + JSON.stringify(param) + "" }, function (result) {
+            window.location.href = "/Administrator/Products/ProductsGetList";
+
+        });
+    }
+</script>
+<script src="~/assets/uploads/jquery.html5uploader.min.js"></script>
+<script src="~/assets/uploads/elnino.drag-upload.js"></script>
+<script type="text/javascript">
+    pnlContainer = 'pnlTemplateFile';
+    pnlDragUpload = 'pnlDragTemplateFile';
+    fileUploadControl = 'fu';
+    fileUploadControl2 = 'fu2';
+    fileUploadControl3 = 'fu3';
+    ReloadDragUpload();
+    $("#ddl-productCate").val($("#txtparentId").val());
+    $("#ddlshowmenu").val($("#txtshowmenuId").val());
+    $("#ddlisshowhome").val($("#txtisshowhomeId").val());
+    function ChangeDD() {
+        alert(dd);
+    }
+    //$('#dd').bind('DOMSubtreeModified', function () {
+    //    alert('changed');
+    //});
+    $(document).ready(function () {
+        $("#mnsp").addClass("setmenuactive");
+        $("#colapliprocate").addClass("mm-active");
+        $("#colapprocate").attr("aria-expanded", true);
+        //alert("ready!");
+        var vb = '@ViewBag.Selected';
+        $("#slPoductCategory").val(vb).change();
+    });
+
+  
+    var bien = 0;
+    var savedd = "";
+
+    function img_click(name, folder,name2) {
+        
+        
+        $("#dd").html('');
+        $("#hdFileName").val('');
+        //if()
+    //Ajax xóa
+        
+        $.ajax({
+            url: '/Tool/DeleteFile.ashx',
+            data: 'name=' + name + '&folder=' + folder ,
+            dataType: 'text',
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+               
+            }
+        });
+       
+    }
+    $("#fu2").on("change", function () {
+        var numFiles = $(this).get(0).files.length;
+
+
+        $("#typeimage").val(2);
+        bien = numFiles;
+        dd = "";
+    });
+    $("#fu").on("change", function () {
+        $("#typeimage").val(1); dd = "";
+    });
+    function img_click2(name, folder, name2) {
+        $("#" + name2).hide();
+        if (folder == "Temp") {
+            savedd = savedd.replace(name, '');
+        }
+       
+        //if()
+        //Ajax xóa
+
+        $.ajax({
+            url: '/Tool/DeleteFile.ashx',
+            data: 'name=' + name + '&folder=' + folder,
+            dataType: 'text',
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+
+            }
+        });
+        //Xóa 
+        var params = {
+            'ProductId': $("#txtID").val(),
+            'Images': name
+        }
+        if (folder == "ProductsImg") {
+            $.ajax({
+                url: '/Products/DeleteProductsImage',
+                data: params,
+                dataType: 'text',
+                type: 'POST',
+                cache: false,
+                success: function (result) {
+
+                }
+            });
+        }
+    }
+    function back() {
+        window.location.href = "/Administrator/Products/ProductsGetList";
+    }
+</script>
+<style>
+    #multidd img{
+        width:150px;
+    }
+</style>

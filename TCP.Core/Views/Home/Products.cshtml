@@ -1,0 +1,1176 @@
+﻿@*<div style="background-color:#0878BE;" class="heightb">
+
+    </div>
+    <div class="wt-bnr-inr overlay-wraper" style="background-image:url('/assets/Build Template _ Home Page Style 5_files/blog-banner.jpg');margin-bottom:20px;">
+        <div class="overlay-main bg-black opacity-07"></div>
+        <div class="container">
+            <div class="wt-bnr-inr-entry" style="margin-top:30px;">
+                <h1 class="text-white">@ViewBag.title</h1>
+            </div>
+            <div class="wt-bnr-inr-entry hidden-xs">
+                <ul class="wt-breadcrumb breadcrumb-style-2">
+                    <li><a href="/" style="color:white;"> Trang chủ</a></li>
+                    <li>@ViewBag.title</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="background-color:#F2F2F2">
+
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="border-0">
+                            <div class="card-body">
+                                @{
+                                    if (Session["ab"] != null)
+                                    {
+                                        if (Session["ab"].ToString() == "1")
+                                        {
+                                            <div class="alert alert-success">Gửi câu hỏi thành công</div>
+                                            Session["ab"] = "0";
+                                        }
+                                    }
+                                }
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (TCP.DTO.DTO_Products it in Model)
+                                        {
+                                            TempData["dd"] = "http://" + Request.Url.Host + "/upload/products/" + it.ProductImage;
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="proddetail_img">
+                                                        <div>
+                                                            <img onclick="toggleimage(this)" src="~/Upload/Products/@it.ProductImage" class="img-fluid" />
+                                                        </div>
+                                                        @if (ViewBag.ProductImage != null)
+                                                        {
+                                                            foreach (TCP.DTO.DTO_Images its in ViewBag.ProductImage)
+                                                            {
+                                                                <div>
+                                                                    <img onclick="toggleimage(this)" src="~/Upload/ProductsImg/@its.Images" class="img-fluid" />
+                                                                </div>
+                                                            }
+                                                        }
+
+                                                    </div>
+                                                    <div class="proddetail_img_thumb">
+                                                        <div>
+                                                            <img onclick="slicks(0)" src="~/Upload/Products/@it.ProductImage" class="img-fluid" />
+                                                        </div>
+                                                        @if (ViewBag.ProductImage != null)
+                                                        {
+                                                            var i = 1;
+
+                                                            foreach (TCP.DTO.DTO_Images it2 in ViewBag.ProductImage)
+                                                            {
+                                                                <div>
+                                                                    <img onclick="slicks(@i)" src="~/Upload/ProductsImg/@it2.Images" class="img-fluid" />
+                                                                </div>i++;
+                                                            }
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div style="box-shadow: 0px 0px 50px -10px rgba(0,0,0,0.17);padding:20px;background-color: white;height: 453px;">
+
+                                                        <div class="pd-title">@it.ProductTitle</div>
+                                                        <hr />
+
+                                                        <div>
+                                                            @Html.Raw(it.ProductDesc)
+                                                        </div>
+                                                        <hr />
+                                                        <div class="prices_box">
+                                                            @if (it.ProductPriceDrop > 0)
+                                                            {
+                                                                <div class="price_goc price_left">
+                                                                    @Html.Raw(string.Format("{0:N0}", it.ProductPrice))<span>đ</span>
+                                                                </div>
+                                                                <div class="price_drop price_right">
+                                                                    @Html.Raw(string.Format("{0:N0}", it.ProductPriceDrop))<span>đ</span>
+                                                                </div>
+                                                                <div class="clear-fix">
+
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (it.ProductPriceDrop > 0)
+                                                                {
+                                                                    <div class="price_drop">
+                                                                        @Html.Raw(string.Format("{0:N0}", it.ProductPrice))<span>đ</span>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="lhs">
+                                                                        Liên hệ để nhận được báo giá
+                                                                    </div>
+                                                                }
+
+                                                            }
+                                                        </div>
+                                                        <div class="row" style="padding:20px 0px">
+                                                            <div class="col-sm-6">
+                                                                <div class="chatfacebook">
+                                                                    <a href="https://www.facebook.com/messages/t/371043649415075" target="_blank">
+                                                                        <i class="fa-brands fa-facebook-messenger"></i>   Chat facebook
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="spdienthoai">
+                                                                    <a href="tel:@ViewBag.Info.Hotline">
+                                                                        <i class="fa fa-phone"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr />
+                                                        <ul class="no-ul lisde hidden">
+
+                                                            <li>
+                                                                <div class="chonsoluong">Chọn số lượng:</div>
+                                                                <div>
+                                                                    <input type="number" id="txtnumc" value="1" />
+                                                                </div>
+                                                                <div>
+                                                                    <button data-toggle="modal" data-target="#myModalCart" type="button" data-id="@it.ProductId" data-name="@(it.ProductTitle)"
+                                                                            data-url="@it.ProductUrl" data-price="@(it.ProductPriceDrop > 0 ? it.ProductPriceDrop : it.ProductPrice)" data-image="@it.ProductImage" class="bt-cart btaddcart btaddcart-detail">
+                                                                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+                                                                    </button>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            //Chi tiết sản phẩm
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+
+                                                    <div class="productdetail_box">
+                                                        <div class="productdetail_title">
+                                                            <div>
+                                                                Chi tiết sản phẩm
+                                                            </div>
+                                                        </div>
+                                                        @Html.Raw(it.ProductContents)
+                                                    </div>
+                                                </div>
+
+                                            </div><div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="productdetail_box">
+                                                        <div class="productdetail_title">
+                                                            <div>
+                                                                Sản phẩm liên quan
+                                                            </div>
+                                                        </div>
+                                                        <div class="row splq_box">
+                                                            @if (ViewBag.ListLienquan != null)
+                                                            {
+                                                                foreach (TCP.DTO.DTO_Products lq in ViewBag.ListLienquan)
+                                                                {
+                                                                    <div class="col-sm-3">
+                                                                        <div class="sanpham_boz">
+                                                                            <div class="item">
+                                                                                <a href="@lq.ProductUrl">
+                                                                                    <img src="/upload/products/@lq.ProductImage" class="img-responsive">
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="product_title">
+                                                                                <a href="@lq.ProductUrl">
+                                                                                    @lq.ProductTitle
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                }
+                                                            }
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        }
+
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group"></div>
+
+
+    <style>
+        body {
+            font-size: 14px;
+        }
+
+        .slick-slide {
+            margin: 20px 10px;
+            border: 1px solid #1a1a1a;
+            padding: 4px;
+        }
+
+            .slick-slide:last-child {
+                margin-right: 0px !important;
+            }
+
+        .breadcrumb-item a {
+            color: #009d48 !important;
+            text-transform: capitalize !important;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            color: #009d48 !important;
+        }
+    </style>
+    <script>
+        $('.proddetail_img').slick({
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                    }
+                }
+            ]
+        });
+        $('.proddetail_img_thumb').slick({
+            infinite: true,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            arrows: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                    }
+                }
+            ]
+        });
+        function slicks(id) {
+            $(".proddetail_img").slickGoTo(id);
+        }
+    </script>*@
+<link href="~/assets/Resource/productdetail.css" rel="stylesheet" />
+<div class="bodywrap">
+
+    <section class="bread-crumb">
+
+        <div class="container">
+
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                </li>
+
+                @if (ViewBag.Parent != null)
+                {
+                    <li>
+                        <a class="changeurl" href="@ViewBag.Parent.ProductCategoryUrl"><span>@ViewBag.Parent.ProductCategoryTitle</span></a>
+                    </li>
+                }
+
+                <li><strong><span>@ViewBag.title</span></strong></li>
+                <li>
+
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="product layout-product" itemscope="" itemtype="https://schema.org/Product">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="details-product">
+
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (TCP.DTO.DTO_Products it in Model)
+                                {
+
+                                    <div class="row">
+                                        <div class="product-detail-left product-images col-12 col-md-12 col-lg-4">
+                                            <div class="product-image-block relative">
+
+                                                <div class="proddetail_img popup-gallery">
+                                                    <div class="proddetail_img_box">
+                                                        <a href="~/Upload/Products/@it.ProductImage">
+                                                            <img onclick="toggleimage(this)" src="~/Upload/Products/@it.ProductImage" class="img-fluid" />
+                                                        </a>
+                                                    </div>
+                                                    @if (ViewBag.ProductImage != null)
+                                                    {
+                                                        foreach (TCP.DTO.DTO_Images its in ViewBag.ProductImage)
+                                                        {
+                                                            <div class="proddetail_img_box">
+                                                                <a href="~/Upload/ProductsImg/@its.Images">
+                                                                    <img onclick="toggleimage(this)" src="~/Upload/ProductsImg/@its.Images" class="img-fluid" />
+
+                                                                </a>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                </div>
+                                                <div class="proddetail_img_thumb">
+                                                    <div>
+                                                        <img onclick="slicks(0,this)" src="~/Upload/Products/@it.ProductImage" class="img-fluid product_active product_nornmal" />
+                                                    </div>
+                                                    @if (ViewBag.ProductImage != null)
+                                                    {
+                                                        var i = 1;
+
+                                                        foreach (TCP.DTO.DTO_Images it2 in ViewBag.ProductImage)
+                                                        {
+                                                            <div>
+                                                                <img onclick="slicks(@i,this)" src="~/Upload/ProductsImg/@it2.Images" class="img-fluid product_nornmal" />
+                                                            </div>
+                                                            i++;
+                                                        }
+                                                    }
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class=" col-12 col-md-7 col-lg-5">
+                                            <div class="details-pro">
+
+
+                                                <h1 class="title-product">@it.ProductTitle</h1>
+
+                                                <div class="reviews_details_product ">
+                                                    <div class="sapo-product-reviews-badge sapo-product-reviews-badge-detail" data-id="31077176"></div>
+                                                </div>
+
+                                                <div enctype="multipart/form-data" data-cart-form="" class="form-inline">
+                                                    <div class="price-box clearfix">
+
+                                                        <span class="special-price">
+                                                            <span class="price product-price">Liên hệ</span>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="btn-mua button_actions clearfix">
+
+                                                    <a href="tel:@(ViewBag.Info.Hotline.ToString().Replace(" ",""))"  class="btn btn_base normal_button btn_add_cart add_to_cart btn-cart">
+                                                        <span class="icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 40 40"><defs></defs><g><path class="cls-1" d="M35.91,36.17,33.24,10.75a1,1,0,0,0-1-.94h-5V8.67a6.47,6.47,0,1,0-12.93,0V9.81h-5a1.05,1.05,0,0,0-1,.94L5.52,36.17a1,1,0,0,0,.93,1.15H34.87a1,1,0,0,0,1.05-1A.41.41,0,0,0,35.91,36.17ZM16.35,8.67a4.38,4.38,0,1,1,8.75,0V9.81H16.35ZM7.73,35.24l2.45-23.33h4.07v2.3a1,1,0,0,0,1,1.09,1,1,0,0,0,1.09-1V11.91H25.1v2.3a1,1,0,0,0,1,1.09,1,1,0,0,0,1.09-1V11.91h4.07l2.45,23.33Z"></path></g></svg>
+                                                        </span>
+                                                        <span class="text">
+                                                            <span class="txt-main text_1">@ViewBag.Info.Hotline</span>
+                                                        </span>
+
+                                                    </a>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-12 col-md-5 col-lg-3">
+                                            <div class="support-product">
+                                                <div class="title">
+                                                    CHÚNG TÔI LUÔN SẴN SÀNG<br>
+                                                    ĐỂ GIÚP ĐỠ BẠN
+                                                </div>
+                                                <div class="image"> 
+                                                    <img src="~/assets/images/evo_product_support.png" data-src="~/assets/images/evo_product_support.png" alt="Hỗ trợ trực tuyến" class="lazy mx-auto d-block img-responsive loaded" data-was-processed="true">
+                                                </div>
+                                                <div class="title2">
+                                                    Để được hỗ trợ tốt nhất. Hãy gọi
+                                                </div>
+                                                <div class="phone">
+                                                    <a href="tel:@ViewBag.Info.Hotline" title="@ViewBag.Info.Hotline">@ViewBag.Info.Hotline</a>
+                                                </div>
+                                                <div class="or">
+                                                    <span>Hoặc</span>
+                                                </div>
+                                                <div class="title3">
+                                                    Chat hỗ trợ trực tuyến
+                                                </div>
+                                                <a title="Chat với chúng tôi" class="chat" href="" target="_blank">
+                                                    Chat với chúng tôi
+                                                </a>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="row" style="margin-top: 40px">
+                                        <div class="col-12 col-lg-12 col-xl-8">
+
+                                            <div class="product-tab e-tabs not-dqtab" id="tab-product">
+                                                <ul class="tabs tabs-title clearfix">
+
+                                                    <li class="tab-link active" data-tab="#tab-1">
+                                                        <h3>Mô tả sản phẩm</h3>
+                                                    </li>
+
+
+                                                </ul>
+                                                <div class="tab-float">
+
+                                                    <div id="tab-1" class="tab-content active content_extab">
+                                                        <div class="rte product_getcontent">
+                                                            @Html.Raw(it.ProductContents)
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-12 col-lg-12 col-xl-4">
+                                            <div class="block-blog">
+                                                <h3 class="title">
+                                                    <a class="title-name" href="tin-tuc" title="Tin tức mới nhất">
+                                                        Tin tức mới nhất
+                                                    </a>
+                                                </h3>
+                                                @{
+                                                    if (ViewBag.Tintuc != null)
+                                                    {
+                                                        foreach (TCP.DTO.DTO_News its in ViewBag.Tintuc)
+                                                        {
+                                                            <div class="item-blog-small">
+                                                                <div class="block-thumb">
+
+                                                                    <a class="thumb" href="@its.NewsUrl" title="@its.NewsTitle">
+                                                                        <img class="lazyload loaded" src="~/Upload/News/@its.NewsImage" data-src="~/Upload/News/@its.NewsImage" alt="@its.NewsTitle" data-was-processed="true">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="block-content">
+
+                                                                    <h3>
+                                                                        <a class="line-clamp line-clamp-2" href="@its.NewsUrl" title="@its.NewsTitle">@its.NewsTitle</a>
+                                                                    </h3>
+
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                }
+
+
+                                                <div class="text-center no-padding">
+                                                    <a class="see-more" title="Xem tất cả" href="tin-tuc">Xem tất cả</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                }
+                            }
+
+
+}
+
+
+
+
+
+
+
+                        <div class="productRelate product-lq">
+                            <h3 class="title">
+                                <a class="title-name" href="/san-pham-noi-bat">
+                                    Sản phẩm liên quan
+                                </a>
+                            </h3>
+
+                            <div class="product-relate-swiper swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+
+                                    @{
+                                        if (ViewBag.ListLienquan != null)
+                                        {
+                                            foreach (TCP.DTO.DTO_Products item in ViewBag.ListLienquan)
+                                            {
+                                                <div class="swiper-slide" style="width: 202px; margin-right: 20px;">
+                                                                                        <div class=" item_product_main">
+                                                                                            <div class="variants product-action" data-cart-form="" enctype="multipart/form-data">
+                                                                                                <div class="product-thumbnail">
+                                                                                                    <a class="image_thumb scale_hover" href="@item.ProductUrl" title="@item.ProductTitle">
+                                                                                                        <img width="234" height="234" class="lazyload image1" src="/Upload/Products/@item.ProductImage" data-src="/Upload/Products/@item.ProductImage" alt="@item.ProductTitle    ">
+                                                                                                    </a>
+                                                                                                </div>
+
+                                                                                                <div class="product-info">
+                                                                                                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="/den-duong-nang-luong-mat-troi-30w" title="Đèn đường năng lượng mặt trời 30W">Đèn đường năng lượng mặt trời 30W</a></h3>
+                                                                                                    <div class="price-box">
+                                                                                                        Liên hệ
+                                                                                                    </div>
+
+                                                                                                    <a href="@item.ProductUrl" class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket2" viewBox="0 0 16 16">
+                                                                                                            <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z"></path>
+                                                                                                            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"></path>
+                                                                                                        </svg>
+                                                                                                        Xem thêm
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                </div>
+
+
+                                            }
+                                        }
+                                    }
+
+
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+
+                        </div>
+
+                        <script>
+                            if (localStorage.last_viewed_products != undefined) {
+                                jQuery('.recent-page-viewed').removeClass('d-none');
+                                var last_viewd_pro_array = JSON.parse(localStorage.last_viewed_products);
+                                var recentview_promises = [];
+                                var size_pro_review = last_viewd_pro_array.length;
+                                if (size_pro_review >= 14) {
+                                    size_pro_review = 14;
+                                } else {
+                                    size_pro_review = last_viewd_pro_array.length;
+                                }
+                                if (size_pro_review < 1) {
+                                    jQuery('.recent-page-viewed').addClass('d-none');
+                                } else {
+                                    jQuery('.recent-page-viewed').removeClass('d-none');
+                                }
+                                if (size_pro_review > 0) {
+                                    for (i = 0; i < size_pro_review; i++) {
+                                        var alias_product = last_viewd_pro_array[i];
+                                        if (!!alias_product.alias) {
+                                            var promise = new Promise(function (resolve, reject) {
+                                                $.ajax({
+                                                    url: '/' + alias_product.alias + '?view=viewed',
+                                                    success: function (product) {
+                                                        resolve(product);
+
+                                                        $(document).ready(function () {
+
+                                                            var modal = $('.quickview-product');
+                                                            var btn = $('.quick-view');
+                                                            var span = $('.quickview-close');
+
+                                                            btn.click(function () {
+                                                                modal.show();
+                                                            });
+
+                                                            span.click(function () {
+                                                                modal.hide();
+                                                            });
+
+                                                            $(window).on('click', function (e) {
+                                                                if ($(e.target).is('.modal')) {
+                                                                    modal.hide();
+                                                                }
+                                                            });
+                                                        });
+                                                    },
+                                                    error: function (err) {
+                                                        resolve('');
+                                                    }
+                                                })
+                                            });
+                                            recentview_promises.push(promise);
+                                        }
+                                    }
+                                    Promise.all(recentview_promises).then(function (values) {
+                                        $.each(values, function (i, v) {
+                                            if (v != '') {
+                                                $('.recent-viewed .swiper-wrapper').append(v);
+                                            } else {
+                                                last_viewd_pro_array.splice(i, 1);
+                                            }
+                                        });
+                                        console.log('listLocalStorage', last_viewd_pro_array);
+                                        setTimeout(function () {
+                                            var swiper = new Swiper('.recent-viewed', {
+                                                slidesPerColumnFill: 'row',
+                                                direction: 'horizontal',
+                                                slidesPerView: 4,
+                                                spaceBetween: 20,
+                                                slidesPerGroup: 1,
+                                                slidesPerColumn: 1,
+                                                navigation: {
+                                                    nextEl: '.section-recenview-product .section-next',
+                                                    prevEl: '.section-recenview-product .section-prev',
+                                                },
+                                                breakpoints: {
+                                                    280: {
+                                                        slidesPerView: 2,
+                                                        spaceBetween: 15
+                                                    },
+                                                    640: {
+                                                        slidesPerView: 2,
+                                                        spaceBetween: 15
+                                                    },
+                                                    768: {
+                                                        slidesPerView: 3,
+                                                        spaceBetween: 15
+                                                    },
+                                                    992: {
+                                                        slidesPerView: 4,
+                                                        spaceBetween: 15
+                                                    },
+                                                    1024: {
+                                                        slidesPerView: 5,
+                                                        spaceBetween: 20
+                                                    }
+                                                }
+                                            });
+                                            awe_lazyloadImage();
+                                        }, 500);
+
+                                        localStorage.setItem('last_viewed_products', JSON.stringify(last_viewd_pro_array));
+                                        awe_lazyloadImage();
+
+                                    })
+                                        .catch(function (productId) {
+                                            const listLocalStorage = (JSON.parse(localStorage.getItem('last_viewed_products')));
+                                            for (let i = 0; i < listLocalStorage.length; ++i) {
+                                                if (listLocalStorage[i].id == productId) {
+                                                    listLocalStorage.splice(i, 1);
+                                                }
+                                            }
+                                            console.log('listLocalStorage', listLocalStorage);
+                                            localStorage.setItem('last_viewed_products', JSON.stringify(listLocalStorage));
+                                        });
+
+                                }
+                            } else {
+                                jQuery('.section-recenview-product').addClass('d-none');
+                            }
+                        </script>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+				function activeTab(obj){
+					$('.product-tab ul li').removeClass('active');
+					$(obj).addClass('active');
+					var id = $(obj).attr('data-tab');
+					$('.tab-content').removeClass('active');
+					$(id).addClass('active');
+				}
+
+				$('.product-tab ul li').click(function(){
+					activeTab(this);
+					return false;
+				});
+
+				var variantsize = false;
+				var ww = $(window).width();
+
+				var selectCallback = function(variant, selector) {
+					if (variant) {
+						var form = jQuery('#' + selector.domIdPrefix).closest('form');
+						for (var i=0,length=variant.options.length; i<length; i++) {
+							var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+							if (radioButton.size()) {
+								radioButton.get(0).checked = true;
+							}
+						}
+					}
+					var addToCart = jQuery('.form-product .btn-cart.normal_button'),
+						FastAddToCart = jQuery('.form-product .btn-cart.fast'),
+						form = jQuery('.form-product .form-group'),
+						productPrice = jQuery('.details-pro .special-price .product-price'),
+						qty = jQuery('.inventory_quantity .a-stock'),
+						comparePrice = jQuery('.details-pro .old-price .product-price-old'),
+						comparePriceText = jQuery('.details-pro .old-price'),
+						savePrice = jQuery('.details-pro .save-price .product-price-save'),
+						savePriceText = jQuery('.details-pro .save-price'),
+						qtyBtn = jQuery('.form-product .form-group .custom-btn-number'),
+						BtnSold = jQuery('.form-product .form-group .btn-mua'),
+						product_sku = jQuery('.details-product .sku-product .variant-sku');
+					if (variant && variant.sku != "" && variant.sku != null) {
+						product_sku.html(variant.sku);
+					} else {
+						product_sku.html('Đang cập nhật');
+					}
+					FastAddToCart.addClass('d-none');
+					if (variant && variant.available) {
+						if(variant.inventory_management == "bizweb"){
+							if (variant.inventory_quantity != 0) {
+								qty.html('<span class="a-stock">Còn hàng</span>');
+							} else if (variant.inventory_quantity == ''){
+								if (variant.inventory_policy == "continue"){
+									qty.html('<span class="a-stock">Còn hàng</span>');
+								} else {
+									qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
+								}
+							}
+						}else{
+							qty.html('<span class="a-stock">Còn hàng</span>');
+						}
+						FastAddToCart.removeClass('d-none');
+						addToCart.html('<span class="icon"><svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 40 40"><defs></defs><g ><path  class="cls-1" d="M35.91,36.17,33.24,10.75a1,1,0,0,0-1-.94h-5V8.67a6.47,6.47,0,1,0-12.93,0V9.81h-5a1.05,1.05,0,0,0-1,.94L5.52,36.17a1,1,0,0,0,.93,1.15H34.87a1,1,0,0,0,1.05-1A.41.41,0,0,0,35.91,36.17ZM16.35,8.67a4.38,4.38,0,1,1,8.75,0V9.81H16.35ZM7.73,35.24l2.45-23.33h4.07v2.3a1,1,0,0,0,1,1.09,1,1,0,0,0,1.09-1V11.91H25.1v2.3a1,1,0,0,0,1,1.09,1,1,0,0,0,1.09-1V11.91h4.07l2.45,23.33Z"/></g></svg></span><span class="text"><span class="txt-main text_1">Thêm vào giỏ</span><span class="text_2">Giao hàng tận nơi miễn phí</span></span>').removeAttr('disabled').removeClass("btn-soldout");
+						BtnSold.removeClass('btnsold');
+						qtyBtn.removeClass('d-none');
+						if(variant.price == 0){
+							console.log(1);
+							productPrice.html('Liên hệ');
+							comparePrice.hide();
+							savePrice.hide();
+							comparePriceText.hide();
+							savePriceText.hide();
+							form.addClass('d-none');
+						}else{
+							form.removeClass('d-none');
+							productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫"));
+																 if ( variant.compare_at_price > variant.price ) {
+											  comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
+											  savePrice.html(Bizweb.formatMoney(variant.compare_at_price - variant.price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
+											  comparePriceText.show();
+							savePriceText.show();
+						} else {
+							comparePrice.hide();
+							savePrice.hide();
+							comparePriceText.hide();
+							savePriceText.hide();
+						}
+					}
+				} else {
+					qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
+					FastAddToCart.addClass('d-none');
+					addToCart.html('<span class="txt-main">Hết hàng</span>').attr('disabled', 'disabled').addClass("btn-soldout");
+					BtnSold.addClass('btnsold');
+					qtyBtn.addClass('d-none');
+					if(variant){
+						if(variant.price != 0){
+							form.removeClass('d-none');
+							productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫"));
+																 if ( variant.compare_at_price > variant.price ) {
+											  FastAddToCart.addClass('d-none');
+							addToCart.html('<span class="txt-main">Hết hàng</span>').attr('disabled', 'disabled').addClass("btn-soldout");
+							comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
+																 savePrice.html(Bizweb.formatMoney(variant.compare_at_price - variant.price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
+																 comparePriceText.show();
+											  savePriceText.show();
+						} else {
+							comparePrice.hide();
+							savePrice.hide();
+							comparePriceText.hide();
+							savePriceText.hide();
+							FastAddToCart.addClass('d-none');
+							addToCart.html('<span class="txt-main">Hết hàng</span>').attr('disabled', 'disabled').addClass("btn-soldout");
+						}
+					}else{
+						productPrice.html('Liên hệ');
+						comparePrice.hide();
+						savePrice.hide();
+						comparePriceText.hide();
+						savePriceText.hide();
+						form.addClass('d-none');
+					}
+				}else{
+					productPrice.html('Liên hệ');
+					comparePrice.hide();
+					savePrice.hide();
+					comparePriceText.hide();
+					savePriceText.hide();
+					form.addClass('d-none');
+				}
+			}
+			/*begin variant image*/
+			if (variant && variant.image) {
+				var originalImage = jQuery(".gallery-thumbs img");
+				var stickoriginalImage = jQuery(".nd-product-news img");
+				var newImage = variant.image;
+				var element = originalImage[0];
+				Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+					$('.gallery-thumbs .swiper-slide').each(function(){
+						var $this = $(this);
+						var imgThis = $this.find('img').attr('data-image');
+
+						if(newImageSizedSrc.split("?")[0] == imgThis.split("?")[0]){
+							var pst = $this.attr('data-hash');
+							galleryTop.slideTo(pst, 1000,false);
+						}
+						jQuery(stickoriginalImage).attr('src', newImageSizedSrc);
+
+
+					});
+				});
+			}
+			/*end of variant image*/
+		};
+		jQuery(function($) {
+
+			// Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+
+												 // Hide selectors if we only have 1 variant and its title contains 'Default'.
+
+												 $('.selector-wrapper').hide();
+
+			$('.selector-wrapper').css({
+				'text-align':'left',
+				'margin-bottom':'15px'
+			});
+		});
+
+		jQuery('.swatch :radio').change(function() {
+			var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+			var optionValue = jQuery(this).val();
+			jQuery(this)
+				.closest('form')
+				.find('.single-option-selector')
+				.eq(optionIndex)
+				.val(optionValue)
+				.trigger('change');
+			$(this).closest('.swatch').find('.header .value-roperties').html(optionValue);
+		});
+
+		setTimeout(function(){
+			$('.swatch .swatch-element').each(function(){
+				$(this).closest('.swatch').find('.header .value-roperties').html($(this).closest('.swatch').find('input:checked').val());
+			});
+		}, 500);
+		setTimeout(function(){
+			var ch = $('.product_getcontent').height(),
+				smore = $('.show-more');
+			console.log(ch);
+			if(ch > 700) {
+				$('.ba-text-fpt').addClass('has-height');
+				smore.removeClass('d-none');
+			}
+		},200);
+		$('.btn--view-more').on('click', function(e){
+			e.preventDefault();
+			var $this = $(this);
+			$this.parents('.product_getcontent').toggleClass('expanded');
+			$('html, body').animate({ scrollTop: $('.product_getcontent').offset().top - 110 }, 'slow');
+			$(this).toggleClass('active');
+
+		});
+
+
+
+
+		var galleryThumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 5,
+			slidesPerView: 20,
+			freeMode: true,
+			lazy: true,
+			watchSlidesVisibility: true,
+			watchSlidesProgress: true,
+			hashNavigation: true,
+			slideToClickedSlide: true,
+			breakpoints: {
+				300: {
+					slidesPerView: 3,
+					spaceBetween: 10,
+				},
+				500: {
+					slidesPerView: 3,
+					spaceBetween: 10,
+				},
+				640: {
+					slidesPerView: 4,
+					spaceBetween: 10,
+				},
+				768: {
+					slidesPerView: 5,
+					spaceBetween: 10,
+				},
+				1024: {
+					slidesPerView: 5,
+					spaceBetween: 10,
+				},
+				1199: {
+					slidesPerView: 5,
+					spaceBetween: 10,
+				},
+			},
+			navigation: {
+				nextEl: '.gallery-thumbs .swiper-button-next',
+				prevEl: '.gallery-thumbs .swiper-button-prev',
+			},
+		});
+		var galleryTop = new Swiper('.gallery-top', {
+			spaceBetween: 0,
+			lazy: true,
+			hashNavigation: true,
+			thumbs: {
+				swiper: galleryThumbs
+			}
+		});
+		var swiper = new Swiper('.product-relate-swiper', {
+			slidesPerColumnFill: 'row',
+			direction: 'horizontal',
+			slidesPerView: 4,
+			spaceBetween: 20,
+			slidesPerGroup: 1,
+			slidesPerColumn: 1,
+			navigation: {
+				nextEl: '.product-lq .section-next',
+				prevEl: '.product-lq .section-prev',
+			},
+			breakpoints: {
+				280: {
+					slidesPerView: 2,
+					spaceBetween: 15
+				},
+				640: {
+					slidesPerView: 2,
+					spaceBetween: 15
+				},
+				768: {
+					slidesPerView: 3,
+					spaceBetween: 15
+				},
+				992: {
+					slidesPerView: 4,
+					spaceBetween: 15
+				},
+				1024: {
+					slidesPerView: 5,
+					spaceBetween: 20
+				}
+			}
+		});
+
+	
+    </script>
+    <script>
+        $(document).ready(function ($) {
+            var getLimit = 20;
+            var product = { "id": 31077176, "name": "Đèn chiếu pha năng lượng mặt trời 350W", "alias": "den-chieu-pha-nang-luong-mat-troi-350w", "vendor": null, "type": null, "content": "<section>\n<p><img alt=\"\" src=\"https://rangdong.com.vn/uploads/images/UD-SP/CP05.SL.RF-350W/CP05.SL.RF-350W-1.jpg\" /></p>\n<p>BẢO VỆ MÔI TRƯỜNG, GIẢM KHÍ THẢI VÀ Ô NHIỄM KHÔNG KHÍ</p>\n<p>Sử dụng điện năng lượng mặt trời - nguồn tài nguyên có sẵn và dồi dào trong tự nhiên giúp giảm sự phụ thuộc vào các nhiên liệu hóa thạch, giảm lượng khí thải CO2, bảo vệ môi trường xanh.</p>\n<p><img alt=\"\" src=\"https://rangdong.com.vn/uploads/images/UD-SP/CP05.SL.RF-350W/CP05.SL.RF-350W-2.jpg\" /></p>\n<p>KHÔNG PHẢI CHI TRẢ TIỀN ĐIỆN</p>\n<p>Sử dụng điện năng mặt trời giúp việc chi trả hóa đơn tiền điện hàng tháng bằng 0.</p>\n<p><img alt=\"\" src=\"https://rangdong.com.vn/uploads/images/UD-SP/CP05.SL.RF-350W/CP05.SL.RF-350W-3.jpg\" /></p>\n<p>DỄ DÀNG LẮP ĐẶT VÀ VẬN HÀNH TỰ ĐỘNG</p>\n<p>Lắp đặt đèn năng lượng mặt trời dễ dàng hơn đèn truyền thống khi không cần thi công đường điện. Tự động tắt/bật theo cảm biến ánh sáng môi trường hoặc điều khiển bằng Remote.</p>\n<p><img alt=\"\" src=\"https://rangdong.com.vn/uploads/images/UD-SP/CP05.SL.RF-350W/CP05.SL.RF-350W-4.jpg\" /></p>\n<p>THỜI GIAN SỬ DỤNG LÂU DÀI, TIẾT KIỆM PHÍ BẢO TRÌ</p>\n<p>Tuổi thọ đèn cao lên tới 30.000 giờ tương đương thời gian sử dụng lên tới 10 năm</p></section>\n\n<section>\n<h2>ƯU ĐIỂM SẢN PHẨM</h2>\n\n<p><img alt=\"\" src=\"https://rangdong.com.vn/uploads/images/UD-SP/CP05.SL.RF-350W/CP05.SL.RF-350W-5.png\" /></p></section>\n\n<section>\n<h2>CẤU TẠO SẢN PHẨM</h2>\n\n<p><img alt=\"\" src=\"https://rangdong.com.vn/uploads/images/UD-SP/CP05.SL.RF-350W/CP05.SL.RF-350W-6.jpg\" /></p></section>", "summary": "<ul>\n<li>Bộ điều khiển nạp/ xả thông minh có chức năng bảo vệ Pin và dimming cho phép đèn hoạt động trong thời gian dài và chiếu sáng linh hoạt.</li>\n<li>Điều khiển tắt bật đèn theo cảm biến ánh sáng môi trường hoặc Remote.</li>\n<li>Sử dụng LED SAMSUNG, chất lượng và hiệu suất sáng cao, tuổi thọ dài.</li>\n<li>Thiết kế có van cân bằng áp suất (khác biệt với sản phẩm khác trên thị trường) chống nước tốt hơn.</li>\n<li>Chế độ chiếu sáng phù hợp với đặc điểm cuộc sống thực tế của người dân Việt Nam.</li>\n<li>Bộ gá tấm solar: Dễ dàng lắp đặt, chắc chắn và an toàn.</li></ul>", "template_layout": "product", "available": true, "tags": [], "price": 4840000.0000, "price_min": 4840000.0000, "price_max": 4840000.0000, "price_varies": false, "compare_at_price": 5000000.0000, "compare_at_price_min": 5000000.0000, "compare_at_price_max": 5000000.0000, "compare_at_price_varies": false, "variants": [{ "id": 89012257, "barcode": null, "sku": null, "title": "Default Title", "options": ["Default Title"], "option1": "Default Title", "option2": null, "option3": null, "available": true, "taxable": false, "price": 4840000.0000, "compare_at_price": 5000000.0000, "inventory_management": null, "inventory_policy": "deny", "inventory_quantity": 0, "weight_unit": "g", "weight": 0, "requires_shipping": true, "image": { "src": "https://bizweb.dktcdn.net/100/487/020/products/cp02-sl-rf-70w-882e2964-7300-4c1c-bfe3-b8ce4a0bae5d.jpg?v=1685007159840" } }], "featured_image": { "src": "https://bizweb.dktcdn.net/100/487/020/products/cp02-sl-rf-70w-882e2964-7300-4c1c-bfe3-b8ce4a0bae5d.jpg?v=1685007159840" }, "images": [{ "src": "https://bizweb.dktcdn.net/100/487/020/products/cp02-sl-rf-70w-882e2964-7300-4c1c-bfe3-b8ce4a0bae5d.jpg?v=1685007159840" }, { "src": "https://bizweb.dktcdn.net/100/487/020/products/cp02-sl-rf-70w-2-4ad86ba7-3dca-4cfd-b1e7-55b3cd671edd.jpg?v=1685007161280" }, { "src": "https://bizweb.dktcdn.net/100/487/020/products/cp02-sl-rf-70w-3-3234c650-1a54-4916-8711-9f3b879ac4a5.jpg?v=1685007162253" }], "options": ["Title"], "created_on": "2023-05-25T16:32:37", "modified_on": "2023-05-25T16:32:42", "published_on": "2023-05-25T16:32:37" };
+            var alias_pro = 'den-chieu-pha-nang-luong-mat-troi-350w';
+            var array_list = [product];
+            var list_viewed_pro_old = localStorage.getItem('last_viewed_products');
+            var last_viewed_pro_new = "";
+            if (list_viewed_pro_old == null || list_viewed_pro_old == '')
+                last_viewed_pro_new = array_list;
+            else {
+                var list_viewed_pro_old = JSON.parse(localStorage.last_viewed_products);
+                list_viewed_pro_old.splice(20, 1);
+                for (i = 0; i < list_viewed_pro_old.length; i++) {
+                    if (list_viewed_pro_old[i].alias == alias_pro) {
+                        list_viewed_pro_old.splice(i, 1);
+                        break;
+                    }
+                }
+                list_viewed_pro_old.unshift(array_list[0]);
+                last_viewed_pro_new = list_viewed_pro_old;
+            }
+            localStorage.setItem('last_viewed_products', JSON.stringify(last_viewed_pro_new));
+            var last_viewd_pro_array = JSON.parse(localStorage.last_viewed_products);
+            var recentview_promises = [];
+            var size_pro_review = last_viewd_pro_array.length;
+            if (size_pro_review >= 20) {
+                size_pro_review = 20;
+            } else {
+                size_pro_review = last_viewd_pro_array.length;
+            }
+        });
+
+
+
+
+    </script>
+</div>
+<script src="~/assets/Js/Slick/slick.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.proddetail_img').slick({
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                    }
+                }
+            ]
+        });
+
+        // Thêm sự kiện swipe vào slider khi khởi tạo
+        $('.proddetail_img').on('swipe', function (event, slick, direction) {
+            if (direction === 'left') {
+                console.log('Vuốt sang trái');
+            } else if (direction === 'right') {
+                console.log('Vuốt sang phải');
+            }
+        });
+    });
+</script>
+<script>
+    function toggleimage(dis) {
+
+    }
+   
+    $('.proddetail_img_thumb').slick({
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: false,
+        arrows: false,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                }
+            }
+        ]
+    });
+    function slicks(id,dis) {
+        $(".proddetail_img").slickGoTo(id);
+        $(".product_nornmal").removeClass("product_active");
+        $(dis).addClass("product_active");
+    }
+   
+  
+</script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/magnific-popup.min.css" integrity="sha512-lvaVbvmbHhG8cmfivxLRhemYlTT60Ly9Cc35USrpi8/m+Lf/f/T8x9kEIQq47cRj1VQIFuxTxxCcvqiQeQSHjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.popup-gallery').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            tLoading: 'Loading image #%curr%...',
+            mainClass: 'mfp-img-mobile',
+            gallery: {
+                enabled: true,
+                navigateByImgClick: true,
+                preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+            },
+            image: {
+                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                titleSrc: function (item) {
+                }
+            }
+        });
+    });
+  
+</script>

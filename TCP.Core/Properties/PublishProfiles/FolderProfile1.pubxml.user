@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\source2021\public</_PublishTargetUrl>
+    <History>False|2021-11-12T15:57:41.6512564Z;False|2021-11-12T22:55:44.4143048+07:00;False|2021-11-12T22:55:09.7202403+07:00;False|2021-11-12T22:53:22.4276838+07:00;False|2021-11-12T22:52:04.7321219+07:00;False|2021-11-12T22:51:41.5429892+07:00;False|2021-11-12T22:46:09.9151996+07:00;False|2021-11-12T22:45:45.6546037+07:00;False|2021-11-12T22:45:34.7517482+07:00;False|2021-11-12T22:42:50.1134459+07:00;</History>
+  </PropertyGroup>
+</Project>

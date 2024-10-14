@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Giới thiệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@Html.Raw(ViewBag.Info.Contents)*@
+<div class="bodywrap">
+    <section class="bread-crumb">
+
+        <div class="container">
+
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                </li>
+
+                <li><strong><span>@ViewBag.title</span></strong></li>
+
+            </ul>
+        </div>
+    </section>
+</div>
+<link href="~/assets/Resource/About.css" rel="stylesheet" />
+
+<section class="page page-about">
+    <div class="container">
+        <div class="pg_page padding-top-15">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title category-title">
+                        <h1 class="title-head d-none"><a href="#">Giới thiệu</a></h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="tong-quan">
+        <div class="container">
+            <div class="row item">
+                <div class="col-12 noi-dung">
+                    <div class="thumb a-center">
+                        <h2 class="title">
+                            Giới thiệu về thi công giá rẻ
+                        </h2>
+                        <div class="content">
+                            @Html.Raw(ViewBag.Info.Contents)
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+</section>

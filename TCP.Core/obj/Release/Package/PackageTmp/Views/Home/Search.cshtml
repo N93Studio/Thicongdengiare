@@ -1,0 +1,117 @@
+﻿
+<div class="breadcrumb_background margin-bottom-40 mg150"  >
+    <div class="title_full">
+        <div class="container a-center">
+            <p class="title_page">@ViewBag.title</p>
+        </div>
+    </div>
+    <section class="bread-crumb">
+        <span class="crumb-border"></span>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 a-center">
+                    <ul class="breadcrumb">
+                        <li class="home">
+                            <a href="/"><span>Trang chủ</span></a>
+                            <span class="mr_lr">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
+                        </li>
+
+
+                        <li><strong><span> Tìm kiếm </span></strong></li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<section class="product margin-top-5 f-left w_100">
+
+    <div class="container">
+        <div class="row">
+            <div class="bg_collection collection_new">
+
+                <div class="main_container collection col-md-12 col-lg-12 col-md-12 padding-col-left-0">
+                    <div class="category-products products f-left w_100">
+
+                        <div class="sortPagiBar">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="box-heading relative">
+                                        <h1 class="title-head margin-top-0">@ViewBag.title</h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <section class="products-view products-view-grid">
+                            <div class="row">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                                            <div class="product-loop-1 product-loop-2 product-loop-col product-base">
+                                                <div class="product-thumbnail">
+                                                    <a class="image_link display_flex" href="@item.ProductUrl" title="Sofa băng BELLA">
+                                                        <img src="~/Upload/Products/@item.ProductImage" alt="Sofa băng BELLA">
+                                                    </a>
+                                                    <div class="product-action clearfix hidden-xs">
+
+                                                    </div>
+                                                </div>
+                                                <div class="product-info a-left">
+                                                    <h3 class="product-name"><a href="@item.ProductUrl" title="@item.ProductTitle">@item.ProductTitle</a></h3>
+
+                                                    <div class="product-hideoff">
+                                                        <div class="product-hide">
+
+
+                                                            <div class="price-box clearfix">
+                                                                <div class="special-price">
+                                                                    @if (item.ProductPrice != 0)
+                                                                    {
+                                                                        <span class="price product-price">@item.ProductPrice.ToString("#,##0")</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="price product-price">Liên hệ</span>
+                                                                    }
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="text-right">
+
+                            </div>
+
+                        </section>
+
+                    </div>
+                </div>
+
+
+
+                <div id="open-filters" class="open-filters hidden-lg">
+                    <i class="fa fa-align-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+</script>

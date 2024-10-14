@@ -1,0 +1,15 @@
+﻿
+
+<ul class="dropdown-menu fade-up">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+
+    <li class="dropdown-submenu">
+        <a class="dropdown-item" href="@item.ProductCategoryUrl">@item.ProductCategoryTitle</a>
+    </li>
+        }
+    }
+   
+</ul>

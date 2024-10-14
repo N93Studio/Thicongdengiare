@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@if (Model != null)
+{
+    var i = 1;
+    foreach (var item in Model)
+    {
+<tr>
+    <td scope="row">@item.ContactId</td>
+    <td>@item.ContactName</td>
+    <td>@item.ContactPhone</td>
+    <td>@item.ContactEmail</td>
+    <td>@item.ContactContent</td>
+    <td>
+          
+            <a href="javascript:deletes('@item.ContactId')">
+                <i class="lnr-trash" style="font-size: 13px; color: white; margin-left: 5px; background-color: #d92550; padding: 10px 10px;"></i>
+            </a>
+        </td>
+</tr>
+        i++;
+    }
+}
+<script>
+    function deletes(id) {
+   
+        var param =
+        {
+            "ContactId": id
+        }
+
+        $.ajax({
+            url: '/Administrator/Contacts/ContactDelete',
+            data: param,
+            dataType: 'text',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+                window.location.reload();
+            }
+        });
+    }
+</script>
+
+
+

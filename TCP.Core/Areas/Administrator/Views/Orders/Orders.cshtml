@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý danh sách bài viết";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-drawer icon-gradient bg-happy-itmeo"></i>
+                </div>
+                <div>
+                    Quản lý đơn hàng
+
+                </div>
+                <div class="page-title-subheading d-none">
+                    <div class="box_search">
+                        <div class="col_cate">
+                            <div onclick="open_cate()" class="dmt">
+                                <span id="title_cate">
+                                    -Danh mục tin-
+                                </span>
+                                <i class="dmt_fa fa fa-angle-down"></i>
+                            </div>
+                            <div class="col_cate_menu">
+                                <ul>
+                                    <li>
+                                        <a>
+                                            Tất cả
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            Chưa xử lý
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            Đã xử lý
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                @*<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
+                        <i class="fa fa-star"></i>
+                    </button>*@
+            </div>
+        </div>
+    </div>        <div class="row">
+        <div class="col-lg-12">
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">Danh sách đơn hàng</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Tổng cộng</th>
+                                    <th>Tình trạng</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodydata">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.OrderID
+                                            </td>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                @item.Phone
+                                            </td>
+
+                                            <td>
+                                                @item.DateCreated
+                                            </td>
+                                            <td>
+                                                <strong style="color:red">
+                                                    @(string.Format("{0:N0}", @item.Totals).ToString())<sup>đ</sup>
+                                                </strong>
+
+                                            </td>
+                                            <td>
+
+
+                                                @if (item.Status == 0)
+                                                {
+                                                    <span>Chờ Xử Lý</span>
+                                                }
+                                                @if (item.Status == 1)
+                                                {
+                                                    <span class="text-success">Đang Xử Lý</span>
+                                                }
+                                                @if (item.Status == 2)
+                                                {
+                                                    <span class="text-success">Đang Giao Hàng</span>
+                                                }
+                                                @if (item.Status == 3)
+                                                {
+                                                    <span class="text-success">Đã Giao Hàng</span>
+                                                }
+                                                @if (item.Status == 4)
+                                                {
+                                                    <span  class="text-danger">Đã Hủy</span>
+                                                }   
+                                            </td>
+                                            <td>
+                                                <a href="/Administrator/Orders/OrdersDetail?OrderID=@item.OrderID">
+                                                    <i class="lnr-pencil" style="font-size: 13px; color: white; background-color: #16aaff; padding: 10px 10px;"></i>
+                                                </a>
+                                                @*<a href="javascript:deletes('14','')">
+                                                        <i class="lnr-trash" style="font-size: 13px; color: white; margin-left: 5px; background-color: #d92550; padding: 10px 10px;"></i>
+                                                    </a>*@
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#mndmtin").addClass("setmenuactive");
+        $("#colaplidonhang").addClass("mm-active");
+        $("#colapdonhang").attr("aria-expanded", true);
+    })
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $('input').lc_switch();
+        // triggered each time a field changes status
+        $(document).on('lcs-statuschange', '.lcs_check', function () {
+            var status = ($(this).is(':checked')) ? 'checked' : 'unchecked',
+                subj = ($(this).attr('type') == 'radio') ? 'radio #' : 'checkbox #',
+                num = $(this).val();
+
+            $('#third_div ul').prepend('<li><em>[lcs-statuschange]</em>' + subj + num + ' changed status: ' + status + '</li>');
+        });
+
+
+        // triggered each time a field is checked
+        $(document).on('lcs-on', '.lcs_check', function () {
+            updateDisplay($(this).val(), 1);
+            var subj = ($(this).attr('type') == 'radio') ? 'radio #' : 'checkbox #',
+                num = $(this).val();
+
+            $('#third_div ul').prepend('<li><em>[lcs-on]</em>' + subj + num + ' is checked</li>');
+        });
+
+
+        // triggered each time a is unchecked
+        $(document).on('lcs-off', '.lcs_check', function () {
+            updateDisplay($(this).val(), 0);
+            var subj = ($(this).attr('type') == 'radio') ? 'radio #' : 'checkbox #',
+                num = $(this).val();
+
+            $('#third_div ul').prepend('<li><em>[lcs-off]</em>' + subj + num + ' is unchecked</li>');
+        }); 
+
+    });
+
+            
+    function updateDisplay(id, status) {
+        var param =
+        {
+            "id": id,
+            "idorder": status
+        }
+        $.ajax({
+            url: '/Administrator/Orders/OrderShow',
+            data: param,
+            dataType: 'text',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+               
+            }
+        });
+    }
+</script>

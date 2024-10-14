@@ -1,0 +1,119 @@
+﻿@*@if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+           <div class="col-md-3 col-6">
+               <div class="box-image">
+                   <div class="spbanchay_content_box">
+                       <a href="@item.ProductUrl">
+                           <img src="~/Upload/Products/@item.ProductImage" class="img-responsive" />
+                       </a>
+                       <div class="spbanchay_content_title">
+                           <a href="@item.ProductUrl">
+                               @item.ProductTitle
+                           </a>
+
+                       </div>
+                       <div class="spbanchay_price_box">
+                           @if (item.ProductPrice > 0)
+                           {
+                               if (item.ProductPriceDrop == 0)
+                               {
+                                   <div class="sbbanchaygiagiam">
+                                       <span>@string.Format("{0:N0}", item.ProductPrice) <sup>đ</sup></span>
+                                   </div>
+                               }
+                               else
+                               {
+                                   <div>
+                                       @{
+                                           var percent = Math.Round(((item.ProductPrice - item.ProductPriceDrop) / item.ProductPrice) * 100);
+                                       }
+                                       <div class="spbanchay_percent">
+                                           Giảm: @percent<span>%</span>
+                                       </div>
+                                   </div>
+                                   <div class="spbanchay_pridcedrop">
+                                       <span>@string.Format("{0:N0}", item.ProductPrice) <sup>đ</sup></span>
+                                   </div>
+                                   <div class="sbbanchaygiagiam">
+                                       <span>@string.Format("{0:N0}", item.ProductPriceDrop) <sup>đ</sup></span>
+                                   </div>
+                               }
+
+                           }
+                           else
+                           {
+                               <div style="color: #ff6600 ">
+                                   Liên hệ
+                               </div>
+                           }
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+
+        }
+    }*@
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="col ">
+            <div class="col-inner colsp">
+
+                <div class="badge-container absolute left top z-1">
+                </div>
+                <div class="product-small box has-hover box-normal box-text-bottom">
+                    <div class="box-image">
+                        <div class="image-cover" style="padding-top:56.25%;">
+                            <a href="@item.ProductUrl">
+                                <img width="1000" height="1000" src="~/Upload/Products/@item.ProductImage" class="attachment-original size-original" alt="sofa intermede" decoding="async" loading="lazy"  title="@item.ProductTitle">
+                            </a>
+                        </div>
+                        <div class="image-tools top right show-on-hover">
+                        </div>
+                        <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                        </div>
+                    </div>
+
+                    <div class="box-text text-center">
+                        <div class="title-wrapper">
+                            <p class="name product-title woocommerce-loop-product__title" style="height: 24.6375px;"><a href="@item.ProductUrl" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">@item.ProductTitle</a></p>
+                        </div>
+                        <div class="price-wrapper" style="height: 14px;">
+                            <span class="price">
+                                <span class="woocommerce-Price-amount amount">
+                                    <bdi>
+                                        @if (item.ProductPrice > 0)
+                                        {
+                                            if (item.ProductPriceDrop != 0)
+                                            {
+
+                                                <div class="price-wrapper" style="height: 36px;">
+                                                    <span class="price"><ins><span class="woocommerce-Price-amount amount"><bdi>@string.Format("{0:N0}", item.ProductPriceDrop)&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></ins> <del><span class="woocommerce-Price-amount amount"><bdi>@string.Format("{0:N0}", item.ProductPrice)&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span></del></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <span>@string.Format("{0:N0}", item.ProductPrice)</span> <span class="woocommerce-Price-currencySymbol">₫</span>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Liên hệ</span>
+                                        }
+
+                                    </bdi>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

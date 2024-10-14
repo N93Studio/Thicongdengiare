@@ -1,0 +1,15 @@
+﻿
+@if (Model != null && Model.Count>0)
+{
+    <ul style="top: -22px;left: 170px;">
+        @foreach (var item in Model)
+        {
+        <li class="myli">
+            <a href="@item.ProductCategoryUrl">
+                @item.ProductCategoryTitle
+            </a>
+        </li>
+        }
+    </ul>
+    
+}

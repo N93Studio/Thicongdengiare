@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@if (Model != null)
+{
+    var i = 1;
+    foreach (var item in Model)
+    {
+<tr>
+    <td scope="row">@item.SlideshowId</td>
+    <td>@item.SlideshowName</td>
+    <td class="table_img">
+        <img src="/upload/Slideshow/@item.Images" />
+    </td>
+    <td><input class="admin_sort" value="@item.DisplayOrder" onchange="change_displayorder('@item.SlideshowId',this)" /></td>
+    <td>
+        <a href="/Administrator/Slideshows/SlideshowInsertList?SlideshowId=@item.SlideshowId">
+            <i class="lnr-pencil" style="font-size: 13px; color: white;  padding: 10px 10px;"></i>
+        </a>
+        <a href="javascript:deletes('@item.SlideshowId','@item.Images')">
+            <i class="lnr-trash" style="font-size: 13px; color: white; margin-left: 5px; background-color: #ff3162; padding: 10px 10px;"></i>
+        </a>
+    </td>
+</tr>
+        i++;
+    }
+}
+<script>
+    function deletes(id,name) {
+        $.ajax({
+            url: '/Tool/DeleteFile.ashx',
+            data: 'name=' + name + '&folder=' + 'Slideshow',
+            dataType: 'text',
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+
+            }
+        });
+        //
+        var param =
+        {
+            "SlideshowId": id
+        }
+
+        $.ajax({
+            url: '/Administrator/Slideshows/SlideshowDelete',
+            data: param,
+            dataType: 'html',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function change_displayorder(id, dd) {
+        var param =
+        {
+            "id": id,
+            "idorder": $(dd).val()
+        }
+        console.log(param);
+        $.ajax({
+            url: '/Administrator/Slideshows/slideshowSort',
+            data: param,
+            dataType: 'html',
+            type: 'POST',
+            cache: false,
+            success: function (result) {
+
+            }
+        });
+    }
+</script>
+
+
+

@@ -1,0 +1,117 @@
+﻿<link href="~/assets/Resource/blog.css" rel="stylesheet" />
+<div class="bodywrap">
+    <section class="bread-crumb">
+
+        <div class="container">
+
+            <ul class="breadcrumb">
+                <li class="home">
+                    <a href="/"><span>Trang chủ</span></a>
+                </li>
+                @if (ViewBag.ParentName != null)
+                {
+                    foreach (TCP.DTO.DTO_NewsCategories item in ViewBag.ParentName)
+                    {
+                        <li class="home">
+                            <a href="/"><span>@item.NewsCategoryTitle</span></a>
+                        </li>
+                    }
+                }
+
+                <li><strong><span>@ViewBag.title</span></strong></li>
+
+            </ul>
+        </div>
+    </section>
+</div> 
+<div class="container pad-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            @if (Model != null)
+            {
+                foreach (TCP.DTO.DTO_News item in Model)
+                {
+
+                    <div class="tintucdetail_box article-details">
+                        <h1 class="article-title">@item.NewsTitle</h1>
+                        <div class="goto-wrapper ftoc-head">
+
+                            <a class="title-goto-wrapper" href="javascript:;">
+                                Nôi dung chính
+                            </a>
+                            <div class="dola-toc">
+                                <ol class="toc-list">
+                                  
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="rte article-content" id="contents">
+                            @Html.Raw(item.NewsContents)
+                        </div>
+
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-sm-3 hidden" style="position:sticky;top:100px;">
+            <div class="tintuclienquan">
+                Tin tức liên quan
+            </div>
+            @{
+                if (ViewBag.TinLienQuan != null)
+                {
+                    foreach (var it2 in ViewBag.TinLienQuan)
+                    {
+                        <div class="newsbox">
+                            <div class="newsleft">
+                                <a href="@it2.Url">
+                                    <img src="/upload/news/@it2.Image" />
+                                </a>
+
+                            </div>
+                            <div class="newsright">
+                                <a href="@it2.Url">
+                                    @it2.Title
+                                </a>
+                            </div>
+                            <div class="clearfix">
+
+                            </div>
+                        </div>
+
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .tintucdetail_box img {
+        height: auto;
+        width: 100%;
+    }
+</style>
+<script>
+    // Lấy tất cả các thẻ h2, h3, h4, h5 trong thẻ div
+    const divElement = document.getElementById('contents');
+    const headings = divElement.querySelectorAll('h2, h3, h4, h5');
+
+    // Duyệt qua từng thẻ và in ra nội dung của chúng
+    headings.forEach(function (heading) {
+        console.log(heading.innerText);
+        //
+        $(heading).attr("id", heading.innerText);
+        $(".toc-list").append
+        (`
+          <li class="toc-list-item">
+          <a onclick="toscroll('${heading.innerText}')" class="toc-link node-name--H2 ">${heading.innerText}</a>
+          </li>
+        `)
+    });
+    let toscroll = (id) => {
+        const contentDiv = document.getElementById(id);
+        contentDiv.scrollIntoView({ behavior: 'smooth' });
+
+    }
+</script>

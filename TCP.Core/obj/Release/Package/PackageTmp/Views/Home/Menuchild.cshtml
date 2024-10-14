@@ -1,0 +1,15 @@
+﻿ @if (Model != null)
+{
+     <ul style="top: -22px;left: 170px;">
+         @foreach (var item in Model)
+         {
+         <li class="myli">
+             <a href="@item.ProductCategoryUrl">
+                 @item.ProductCategoryTitle  <i class="fa fa-caret-right"></i>
+             </a>
+             @Html.Action("Menuchild2", "Home", new { ParentID = item.ProductCategoryId })
+         </li>
+         }
+     </ul>
+   
+}

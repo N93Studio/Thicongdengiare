@@ -1,0 +1,162 @@
+﻿
+<div class="scrollbar-sidebar">
+    <div class="app-sidebar__inner">
+        <ul class="vertical-nav-menu">
+            <li class="app-sidebar__heading">Dashboard</li>
+            <li>
+                <a href="/Administrator/Dashboard/index" id="mnhome">
+                    <i class="metismenu-icon pe-7s-home"></i>Trang chủ
+                </a>
+            </li>
+            @if (ViewBag.Donvichuquan == 0 && ViewBag.Slideshow == 0 && ViewBag.Danhsachlienhe == 0)
+            {
+
+            }
+            else
+            {
+                <li class="app-sidebar__heading">Giới thiệu</li>
+            }
+
+            @if (ViewBag.Donvichuquan == 1)
+            {
+                <li>
+                    <a href="/Administrator/Informs/GetInfor" id="mndonvichuquan">
+                        <i class="metismenu-icon pe-7s-global"></i>Đơn vị chủ quản
+                    </a>
+                </li>
+            }
+            @if (ViewBag.Slideshow == 1)
+            {
+                <li>
+                    <a href="/Administrator/Slideshows/SlideshowGetList" id="mnslideshow">
+                        <i class="metismenu-icon pe-7s-photo"></i>Slideshow
+                    </a>
+                </li>
+            }
+            @if (ViewBag.Danhsachlienhe == 1)
+            {
+                <li>
+                    <a href="/Administrator/Contacts/ContactGetList" id="mncontact">
+                        <i class="metismenu-icon pe-7s-user"></i>Danh sách liên hệ
+                    </a>
+                </li>
+            }
+            <li class="app-sidebar__heading">Chức năng</li>
+            @if (ViewBag.Doitac == 1)
+            {
+
+                <li>
+                    <a href="/Administrator/Doitac/DoitacGetList" id="mndoitac">
+                        <i class="metismenu-icon pe-7s-graph2"></i>Đối tác
+                    </a>
+                </li>
+
+            }
+            @if (ViewBag.Qlbv == 1)
+            {
+
+
+                <li id="colaplinewcate">
+                    <a href="#" id="colapnewcate">
+                        <i class="metismenu-icon pe-7s-browser"></i>Quản lý bài viết
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Administrator/NewsCategories/NewCategoriesGetList" id="mndmtin">
+                                <i class="metismenu-icon"></i> Quản lý danh mục tin
+                            </a>
+                        </li>
+                        @*<li>
+                        <a href="/Administrator/news/NewsGetList">
+                            <i class="metismenu-icon"></i>Quản lý tin
+                        </a>
+                    </li>*@
+                        @if (ViewBag.ListNewCate != null)
+                        {
+                            foreach (TCP.DTO.DTO_NewsCategories item in ViewBag.ListNewCate)
+                            {
+                                <li>
+                                    <a href="/Administrator/news/NewsGetList?NewsCategoryId=@item.NewsCategoryId" id="mnnew_@item.NewsCategoryId">
+                                        <i class="metismenu-icon"></i>Quản lý @item.NewsCategoryTitle
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+            @if (ViewBag.Qlsp == 1)
+            {
+                <li id="colapliprocate">
+                    <a href="#" id="colapprocate">
+                        <i class="metismenu-icon pe-7s-plugin"></i>Quản lý sản phẩm
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Administrator/ProductCategory/getlist" id="mndmsp">
+                                <i class="metismenu-icon"></i>Danh mục
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Administrator/Products/ProductsGetList" id="mnsp">
+                                <i class="metismenu-icon"></i>Danh sách sản phẩm
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (ViewBag.Qldh == 1)
+            {
+               <li id="colaplidonhang">
+                   <a href="#" id="colapdonhang">
+                       <i class="metismenu-icon pe-7s-plugin"></i>Quản lý đơn hàng
+                       <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                   </a>
+                   <ul>
+                       <li>
+                           <a href="/Administrator/Orders/Orders">
+                               <i class="metismenu-icon"></i>Danh sách đơn hàng
+                           </a>
+                       </li>
+
+                   </ul>
+               </li>
+            }
+
+            <li class="app-sidebar__heading">Thiết lập</li>
+            <li>
+                <a href="/Administrator/Menubar/GeMenubartList" id="mnchucnang">
+                    <i class="metismenu-icon pe-7s-usb"></i>Chức năng
+                </a>
+            </li>
+            @if (ViewBag.QlMenu == 1)
+            {
+                <li>
+                    <a href="/Administrator/Menu/MenuGetList" id="mnMenu">
+                        <i class="metismenu-icon pe-7s-note2"></i>Menu
+                    </a>
+                </li>
+            }
+            @if (ViewBag.Logo == 1)
+            {
+                <li>
+                    <a href="/Administrator/Settings/Index" id="mnlogo">
+                        <i class="metismenu-icon pe-7s-world"></i>Logo
+                    </a>
+                </li>
+            }
+            @if (ViewBag.Qlseo == 1)
+            {
+                <li>
+                    <a href="/Administrator/Scripts/Index" id="mnqlseo">
+                        <i class="metismenu-icon pe-7s-display1"></i>Quản lý seo
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+</div>
+

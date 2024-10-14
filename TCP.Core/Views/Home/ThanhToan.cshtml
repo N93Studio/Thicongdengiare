@@ -1,0 +1,212 @@
+﻿@using System.Data;
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="breadcrumb_background margin-bottom-40 " style="margin-top:150px;">
+    <div class="title_full">
+        <div class="container a-center">
+            <p class="title_page">@ViewBag.title</p>
+        </div>
+    </div>
+    <section class="bread-crumb">
+        <span class="crumb-border"></span>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 a-center">
+                    <ul class="breadcrumb">
+                        <li class="home">
+                            <a href="/"><span>Trang chủ</span></a>
+                            <span class="mr_lr">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
+                        </li>
+
+
+                        <li><strong><span>@ViewBag.title</span></strong></li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<section class="product margin-top-5 f-left w_100">
+
+    <div class="container">
+        <div class="thumbnail">
+            <div class="caption">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="container-col-head">
+                            <div class="title">THANH TOÁN ĐƠN HÀNG</div>
+                            <div class="desc">Cám ơn đã lựa chọn chúng tôi để trải nghiệm mua sắm thông minh</div>
+                            <a class="cart-link" href="/gio-hang"><i class="fa fa-shopping-cart"></i> Giỏ hàng của bạn</a>
+                        </div>
+                        <section class="step1-check">
+                            <div class="block-head no-before">
+                                <div class="title">Bạn vui lòng cung cấp thông tin mua hàng</div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <div class="lbl-col">Họ và tên <span class="text-danger">(*)</span></div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="name" class="form-control" placeholder="Họ và tên. VD: Nguyễn Văn A" name="buyerFullname" value="">
+
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <div class="lbl-col">Địa chỉ</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="address" class="form-control">
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <div class="lbl-col">Điện thoại <span class="text-danger">(*)</span></div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="phone" class="form-control">
+
+
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <div class="lbl-col">Ghi chú</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <textarea id="txtcontent" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group hide">
+                                <div class="checkregion">
+                                    <input type="checkbox" id="ddlcheck"> <span class="checkmark"></span> Thông tin người nhận khác người mua
+                                </div>
+                                <div class="region-rec" id="reg0">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <div class="lbl-col">Họ và tên <span class="text-danger">(*)</span></div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="namereceiver" class="form-control" placeholder="Họ và tên. VD: Nguyễn Văn A" name="buyerFullname" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <div class="lbl-col">Địa chỉ</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="addressreceiver" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <div class="lbl-col">Điện thoại <span class="text-danger">(*)</span></div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="phonereceiver" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+                        <div class="form-group row">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button class="btn btn-red btn-pill btn-cart" onclick="SendInfo()"><i class="fa fa-shopping-cart fa-lg"></i> Xác nhận</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"></div>
+                        <div class="shopcart">
+                            <div class="segment-head">ĐƠN HÀNG CỦA BẠN</div>
+                            <div id="bigcartshop">
+
+                                @if (ViewBag.dt != null && ViewBag.dt.Rows.Count > 0)
+                                {
+                                    int i = 0;
+                                    foreach (DataRow dr in ((DataTable)ViewBag.dt).Rows)
+                                    {
+                                        <div class="product-panel">
+                                            <div class="img-col">
+                                                @{
+                                                    if (!string.IsNullOrEmpty(dr["ProductImage"].ToString()))
+                                                    {
+                                                        <img src="~/upload/products/@(dr["ProductImage"].ToString())?v=1" class="img-responsive" style="width:120px;" />
+
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                    }
+                                                }
+
+                                            </div>
+                                            <div class="info-col">
+                                                <div class="title"><a href="#">@(dr["ProductTitle"].ToString())</a></div>
+                                                <div class="desc-item-wrap">
+                                                    <div class="desc-item">Số lượng: @(dr["Amount"].ToString())</div>
+                                                    <div class="desc-item">Đơn giá:   @(string.Format("{0:N0}", dr["ProductPrice"]).ToString())<sup>đ</sup></div>
+                                                </div>
+                                                @if (Tool.Utils.ReturnPrice(int.Parse((dr["ProductId"]).ToString())) != 0)
+                                                {
+                                                    <div class="price">@(string.Format("{0:N0}", Tool.Utils.ReturnPrice(int.Parse(dr["ProductId"].ToString()))))<sup>đ</sup></div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+
+                                <div class="statistic">
+                                    <table class="table table-v">
+
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">Tổng thanh toán:</td>
+                                                <td align="right"><span class="text-orange">@(string.Format("{0:N0}", ViewBag.total).ToString())<sup>đ</sup></span></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    function SendInfo() {
+      
+        var param = {
+            CustomerId:0,
+            "Name": $("#name").val(),
+            "Adress": $("#address").val(),
+            "Phone": $("#phone").val(),
+            "Desciptions": $("#txtcontent").val(),
+        }
+        $.post("/Home/InsertThanhToan", { "data": "" + JSON.stringify(param) + "" }, function (result) {
+            alert("Đặt hàng thành công");
+            window.location.href = "/dat-hang-thanh-cong";
+        });
+    }
+</script>
